@@ -1,0 +1,53 @@
+---
+import NorthernLineIcon from '../icons/NorthernLineIcon.astro';
+
+interface Props {
+  title?: string;
+  camera?: string;
+  lens?: string;
+  focalLength?: string;
+  aperture?: string;
+  shutter?: string;
+  iso?: string;
+  note?: string;
+}
+
+const {
+  title = 'Fotografie',
+  camera,
+  lens,
+  focalLength,
+  aperture,
+  shutter,
+  iso,
+  note
+} = Astro.props;
+
+const values = [
+  ['Kamera', camera],
+  ['Objektiv', lens],
+  ['Brennweite', focalLength],
+  ['Blende', aperture],
+  ['Belichtungszeit', shutter],
+  ['ISO', iso]
+].filter(([, value]) => Boolean(value));
+---
+<aside class="nl-photo-box">
+  <div class="nl-component-heading">
+    <NorthernLineIcon name="camera" size={30} />
+    <h2>{title}</h2>
+  </div>
+
+  {values.length > 0 && (
+    <dl class="nl-data-grid">
+      {values.map(([label, value]) => (
+        <div>
+          <dt>{label}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
+
+  {note && <p class="nl-component-note">{note}</p>}
+</aside>

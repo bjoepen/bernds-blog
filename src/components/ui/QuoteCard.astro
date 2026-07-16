@@ -1,0 +1,16 @@
+---
+import NorthernLineIcon from '../icons/NorthernLineIcon.astro';
+
+interface Props {
+  source?: string;
+}
+
+const { source } = Astro.props;
+---
+<figure class="nl-quote-card">
+  <NorthernLineIcon name="seagull" size={42} class="nl-quote-card__symbol" />
+  <blockquote>
+    <slot />
+  </blockquote>
+  {source && <figcaption>{source}</figcaption>}
+</figure>

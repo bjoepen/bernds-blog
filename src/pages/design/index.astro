@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NorthernLineIcon from '../../components/icons/NorthernLineIcon.astro';
+
+const sections = [
+  {
+    href: '/design/system/',
+    icon: 'seagull',
+    title: 'Design System',
+    text: 'Philosophie, Farben, Typografie, Layout und redaktionelle Regeln.'
+  },
+  {
+    href: '/design/icons/',
+    icon: 'compass',
+    title: 'Icon Library',
+    text: 'Alle Northern-Lines-Symbole mit Suche, Status und SVG-Download.'
+  },
+  {
+    href: '/design/ui/',
+    icon: 'travel-notebook',
+    title: 'UI Components',
+    text: 'Panels, Timeline, Wetter, Checklisten, Zitate und Reiseinformationen.'
+  },
+  {
+    href: '/design/editorial/',
+    icon: 'camera',
+    title: 'Editorial Foundations',
+    text: 'Vorschau von NLHero, NLSectionDivider und NLQuote.'
+  },
+  {
+    href: '/design/heroes/',
+    icon: 'camera',
+    title: 'Hero Collection',
+    text: 'Neun freigegebene Northern-Lines-Illustrationen mit Einsatzbereich und Download.'
+  }
+] as const;
+---
+
+<BaseLayout
+  title="Northern Lines Design"
+  description="Interne Einstiegsseite für das Northern Lines Design System."
+  noindex={true}
+>
+  <header class="page-header">
+    <div class="container">
+      <div class="eyebrow">RC6.1 · Build 2</div>
+      <h1>Northern Lines Design</h1>
+      <p class="lead">
+        Der zentrale Einstieg in Designsystem, Symbolbibliothek,
+        UI-Komponenten, Editorial Foundations und Hero Collection.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container nl-design-hub">
+      {sections.map((section) => (
+        <a class="nl-design-hub__card" href={section.href}>
+          <NorthernLineIcon name={section.icon} size={42} />
+          <div>
+            <h2>{section.title}</h2>
+            <p>{section.text}</p>
+            <span>Öffnen →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

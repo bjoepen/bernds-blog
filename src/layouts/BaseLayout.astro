@@ -1,0 +1,138 @@
+---
+import '../styles/global.css';
+
+const {
+  title = 'Bernds Blog',
+  description = 'Persönliche Reiseberichte, Reisefotografie und Erfahrungen unterwegs.',
+  image = '/icons/social-card.svg',
+  canonical,
+  noindex = false,
+  type = 'website'
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://www.beblog.de');
+const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pathname, site);
+const imageURL = new URL(image, site);
+const fullTitle = title === 'Bernds Blog' ? title : `${title} | Bernds Blog`;
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/reisen/', label: 'Reisen' },
+  { href: '/fotografie/', label: 'Fotografie' },
+  { href: '/orte/visby/', label: 'Fotospots' },
+  { href: '/ausruestung/', label: 'Ausrüstung' },
+  { href: '/ueber/', label: 'Über mich' }
+];
+
+const isCurrent = (href: string) =>
+  currentPath === href || (href !== '/' && currentPath.startsWith(href));
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': type === 'article' ? 'BlogPosting' : 'WebSite',
+  name: fullTitle,
+  headline: title,
+  description,
+  url: canonicalURL.href,
+  image: imageURL.href,
+  author: {
+    '@type': 'Person',
+    name: 'Bernd Jöpen'
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Bernd Jöpen'
+  }
+};
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#1d6370" />
+  {noindex && <meta name="robots" content="noindex,nofollow" />}
+  <link rel="canonical" href={canonicalURL} />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:type" content={type} />
+  <meta property="og:site_name" content="Bernds Blog" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={imageURL} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={imageURL} />
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <title>{fullTitle}</title>
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Zur Startseite">
+        <span class="brand-mark" aria-hidden="true"><img src="/icons/favicon.svg" alt="" width="46" height="46" /></span>
+        <span class="brand-copy">
+          <span class="brand-title">Bernds Blog</span>
+          <span class="brand-claim">Reisen <span>|</span> Fotografieren <span>|</span> Gestalten</span>
+        </span>
+      </a>
+      <nav class="nav-links nav-links--desktop" aria-label="Hauptnavigation">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={{ 'is-current': isCurrent(item.href) }}
+            aria-current={isCurrent(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <details class="mobile-nav">
+        <summary aria-label="Navigation öffnen">
+          <span class="mobile-nav__icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="mobile-nav__label">Menü</span>
+        </summary>
+        <nav class="mobile-nav__panel" aria-label="Mobile Hauptnavigation">
+          {navItems.map((item) => (
+            <a
+              href={item.href}
+              class:list={{ 'is-current': isCurrent(item.href) }}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </details>
+    </div>
+  </header>
+  <main id="main-content"><slot /></main>
+  <footer class="site-footer">
+  <div class="container footer-main">
+    <div class="footer-brand-block"><a class="footer-brand" href="/" aria-label="Zur Startseite"><img src="/icons/favicon.svg" alt="" width="72" height="72"/><span><strong>Bernds Blog</strong><small>Reisen. Fotografieren. Gestalten.</small><small>Erlebnisse teilen, Erinnerungen bewahren.</small></span></a></div>
+    <div class="footer-column"><h2>Navigation</h2><nav class="footer-nav" aria-label="Footer-Navigation"><a href="/">Startseite</a><a href="/reisen/">Reisen</a><a href="/fotografie/">Fotografieren</a><a href="/ausruestung/">Gestalten</a><a href="/ueber/">Über mich</a></nav></div>
+    <div class="footer-column"><h2>Folge mir</h2><div class="social-list" aria-label="Social Media und Kontakt">
+      <a href="https://www.instagram.com/bjoepen/" target="_blank" rel="me noopener noreferrer" aria-label="Instagram: bjoepen">
+        <span class="social-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.8" r="1"/></svg></span><span>bjoepen</span><span class="external-mark" aria-hidden="true">↗</span>
+      </a>
+      <a href="https://www.facebook.com/bjoepen" target="_blank" rel="me noopener noreferrer" aria-label="Facebook: bjoepen">
+        <span class="social-icon social-facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h2.8l.5-3H14V8.1c0-.9.3-1.5 1.7-1.5H17V3.9c-.5-.1-1.3-.2-2.3-.2-2.4 0-4 1.5-4 4.1V10H8v3h2.7v8H14Z"/></svg></span><span>bjoepen</span><span class="external-mark" aria-hidden="true">↗</span>
+      </a>
+      <a href="mailto:info@beblog.de" aria-label="E-Mail an info@beblog.de">
+        <span class="social-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><span>info@beblog.de</span>
+      </a>
+    </div></div>
+  </div>
+  <div class="container footer-bottom"><p>© {new Date().getFullYear()} Bernds Blog – Alle Rechte vorbehalten.</p><nav aria-label="Rechtliche Navigation"><a href="/impressum/">Impressum</a><span aria-hidden="true">|</span><a href="/datenschutz/">Datenschutz</a></nav></div>
+</footer>
+</body>
+</html>

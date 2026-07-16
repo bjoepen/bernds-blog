@@ -1,0 +1,25 @@
+---
+import NorthernLineIcon from '../icons/NorthernLineIcon.astro';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  icon?: 'seagull' | 'compass' | 'camera' | 'road' | 'stay' | 'waves';
+  compact?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  icon = 'seagull',
+  compact = false
+} = Astro.props;
+---
+
+<header class:list={['nl-section-divider', { 'nl-section-divider--compact': compact }]}>
+  <NorthernLineIcon name={icon} size={30} />
+  <div>
+    <h2>{title}</h2>
+    {subtitle && <p>{subtitle}</p>}
+  </div>
+</header>

@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import MapConsent from '../../../components/MapConsent.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('fotospots', ({data}) => import.meta.env.DEV || !data.draft);
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<ArticleLayout entry={entry}>
+  <Content />
+  <MapConsent latitude={entry.data.latitude} longitude={entry.data.longitude} zoom={16} />
+  <div slot="sidebar" class="card">
+    <div class="card-number">FOTOSPOT</div>
+    <h3>{entry.data.place}</h3>
+    {entry.data.bestTime && <p><strong>Beste Zeit:</strong> {entry.data.bestTime}</p>}
+    {entry.data.lens && <p><strong>Objektiv:</strong> {entry.data.lens}</p>}
+    <p><strong>Schwierigkeit:</strong> {entry.data.difficulty}</p>
+    {entry.data.walkingTime && <p><strong>Gehzeit:</strong> {entry.data.walkingTime}</p>}
+  </div>
+</ArticleLayout>

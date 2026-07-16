@@ -1,0 +1,87 @@
+---
+interface GalleryImage {
+  src: string;
+  full?: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  title?: string;
+  intro?: string;
+  images: GalleryImage[];
+  columns?: 2 | 3;
+}
+
+const { title, intro, images, columns = 2 } = Astro.props;
+---
+
+<section class="nl-lightbox-gallery" data-lightbox-gallery>
+  {title && <h2>{title}</h2>}
+  {intro && <p class="nl-lightbox-gallery__intro">{intro}</p>}
+
+  <div class:list={['nl-lightbox-gallery__grid', `nl-lightbox-gallery__grid--${columns}`]}>
+    {images.map((image, index) => (
+      <figure class="nl-lightbox-gallery__item">
+        <button
+          type="button"
+          class="nl-lightbox-gallery__trigger"
+          aria-label={`Bild ${index + 1} vergrößern: ${image.alt}`}
+          data-lightbox-index={index}
+        >
+          <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+          <span class="nl-lightbox-gallery__zoom" aria-hidden="true">+</span>
+        </button>
+        {image.caption && <figcaption>{image.caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+
+  <dialog class="nl-lightbox" aria-label="Bildansicht">
+    <button type="button" class="nl-lightbox__close" aria-label="Bildansicht schließen">×</button>
+    <button type="button" class="nl-lightbox__nav nl-lightbox__nav--previous" aria-label="Vorheriges Bild">‹</button>
+    <figure class="nl-lightbox__figure">
+      <img src="" alt="" />
+      <figcaption></figcaption>
+    </figure>
+    <button type="button" class="nl-lightbox__nav nl-lightbox__nav--next" aria-label="Nächstes Bild">›</button>
+  </dialog>
+
+  <script define:vars={{ images }}>
+    const gallery = document.currentScript?.closest('[data-lightbox-gallery]');
+    if (gallery) {
+      const dialog = gallery.querySelector('.nl-lightbox');
+      const image = dialog?.querySelector('img');
+      const caption = dialog?.querySelector('figcaption');
+      const triggers = [...gallery.querySelectorAll('[data-lightbox-index]')];
+      let current = 0;
+
+      const show = (index) => {
+        if (!dialog || !image || !caption || images.length === 0) return;
+        current = (index + images.length) % images.length;
+        const item = images[current];
+        image.src = item.full || item.src;
+        image.alt = item.alt;
+        caption.textContent = item.caption || '';
+        if (!dialog.open) dialog.showModal();
+      };
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener('click', () => show(Number(trigger.dataset.lightboxIndex)));
+      });
+
+      dialog?.querySelector('.nl-lightbox__close')?.addEventListener('click', () => dialog.close());
+      dialog?.querySelector('.nl-lightbox__nav--previous')?.addEventListener('click', () => show(current - 1));
+      dialog?.querySelector('.nl-lightbox__nav--next')?.addEventListener('click', () => show(current + 1));
+
+      dialog?.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+
+      dialog?.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') show(current - 1);
+        if (event.key === 'ArrowRight') show(current + 1);
+      });
+    }
+  </script>
+</section>

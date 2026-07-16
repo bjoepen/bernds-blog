@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const heroes = [
+  ['hero-01-autoreisen.png', 'Autoreisen', 'Roadtrips, Mietwagenreisen und Fahrten durch Landschaften', 'Küstenstraße im Northern-Lines-Stil'],
+  ['hero-02-kreuzfahrten.png', 'Kreuzfahrten', 'Reiseübersichten und allgemeine Kreuzfahrtbeiträge', 'Kreuzfahrtschiff in einer ruhigen Küstenlandschaft'],
+  ['hero-03-nordsee.png', 'Nordsee', 'Strand, Dünen und Aufenthalte an der Nordseeküste', 'Nordseestrand mit Dünen und kleinem Strandhaus'],
+  ['hero-04-holland.png', 'Holland', 'Niederlande, Windmühlen, Tulpen und regionale Geschichten', 'Niederländische Landschaft mit Windmühlen, Tulpen und Käse'],
+  ['hero-05-hafen-sonnenuntergang.png', 'Hafen bei Sonnenuntergang', 'Hafenportraits, Abendstimmung und maritime Rückblicke', 'Ruhiger Hafen bei untergehender Sonne'],
+  ['hero-06-auslaufen.png', 'Auslaufen', 'Abschied, Aufbruch und Blick zurück auf einen Hafen', 'Blick von einem Kreuzfahrtschiff zurück auf den Hafen'],
+  ['hero-07-reisen.png', 'Reisen', 'Startseite und allgemeine Reiseübersichten', 'Koffer, Kamera, Reisepass, Karte und Kompass'],
+  ['hero-08-portrait.png', 'Portrait', 'Autor, Über-mich-Seite und persönliche Reisebeiträge', 'Portrait im Northern-Lines-Illustrationsstil'],
+  ['hero-09-kamera-tal.png', 'Kamera im Tal', 'Fotografie, Landschaft und fotografische Reisegeschichten', 'Kamera auf einem Stativ mit Blick in ein weites Tal']
+] as const;
+---
+
+<BaseLayout title="Northern Lines Hero Collection" description="Interne Übersicht der Northern Lines Hero Collection v1.0." noindex={true}>
+  <a class="nl-design-backlink" href="/design/">← Design-Übersicht</a>
+  <header class="page-header">
+    <div class="container">
+      <div class="eyebrow">RC6.1 · Hero Collection v1.0</div>
+      <h1>Northern Lines Hero Collection</h1>
+      <p class="lead">Neun freigegebene Illustrationen für Reisen, Kreuzfahrten, Fotografie, Orte und persönliche Inhalte.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container nl-hero-library">
+      <aside class="nl-hero-library__intro">
+        <div>
+          <h2>Illustrationsstil v1.0</h2>
+          <p>Gedämpfte Fjordfarben, warmes Papier, flache Formen und ruhige Kompositionen bilden die verbindliche Bildsprache.</p>
+        </div>
+        <ul>
+          <li>neun Approved-Motive</li>
+          <li>PNG-Master</li>
+          <li>keine Schrift im Motiv</li>
+          <li>ruhige, matte Farbwelt</li>
+        </ul>
+      </aside>
+
+      <div class="nl-hero-library__grid">
+        {heroes.map(([file, title, use, alt]) => (
+          <article class:list={['nl-hero-library__card', { 'nl-hero-library__card--portrait': file === 'hero-08-portrait.png' }]}>
+            <figure><img src={`/images/heroes/northern-lines/${file}`} alt={alt} loading="lazy" decoding="async" /></figure>
+            <div>
+              <div class="nl-hero-library__meta"><code>{file}</code><span>Approved</span></div>
+              <h2>{title}</h2>
+              <p>{use}</p>
+              <a href={`/images/heroes/northern-lines/${file}`} download={file}>PNG herunterladen</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

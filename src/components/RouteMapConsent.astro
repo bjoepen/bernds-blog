@@ -1,0 +1,104 @@
+---
+import NorthernLineIcon from './icons/NorthernLineIcon.astro';
+const {
+  stops = [],
+  center = [42.5, 7.5],
+  zoom = 5,
+  buttonLabel = 'Karte mit Fotospots laden',
+  note = 'Beim Laden werden Kartenkacheln von OpenStreetMap abgerufen. Dabei wird Ihre IP-Adresse an den Kartenserver übertragen.'
+} = Astro.props;
+---
+<div
+  class="map-consent route-map-consent"
+  data-route-map-wrap
+  data-stops={JSON.stringify(stops)}
+  data-center={JSON.stringify(center)}
+  data-zoom={zoom}
+>
+  <div class="map-placeholder" data-route-placeholder>
+    <span class="map-placeholder-icon" aria-hidden="true"><NorthernLineIcon name="marker" size={34} /></span>
+    <h3>Interaktive Karte</h3>
+    <p>Beim Laden werden Kartenkacheln von OpenStreetMap abgerufen. Dabei wird Ihre IP-Adresse an den Kartenserver übertragen.</p>
+    <button class="button" type="button" data-load-route-map>{buttonLabel}</button>
+  </div>
+  <div class="map route-map" data-route-map hidden aria-label="OpenStreetMap-Karte der Reiseroute"></div>
+</div>
+
+<script>
+  import 'leaflet/dist/leaflet.css';
+
+  const wrappers = document.querySelectorAll('[data-route-map-wrap]');
+
+  wrappers.forEach((wrapper) => {
+    const button = wrapper.querySelector('[data-load-route-map]');
+    button?.addEventListener('click', async () => {
+      try {
+        const { default: L } = await import('leaflet');
+        const mapNode = wrapper.querySelector('[data-route-map]');
+        const placeholder = wrapper.querySelector('[data-route-placeholder]');
+        if (!(mapNode instanceof HTMLElement)) return;
+
+        const stops = JSON.parse(wrapper.getAttribute('data-stops') || '[]');
+        const center = JSON.parse(wrapper.getAttribute('data-center') || '[42.5,7.5]');
+        const zoom = Number(wrapper.getAttribute('data-zoom') || '5');
+
+        mapNode.hidden = false;
+        if (placeholder instanceof HTMLElement) placeholder.hidden = true;
+
+        const map = L.map(mapNode, {
+          scrollWheelZoom: false
+        }).setView(center, zoom);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; OpenStreetMap-Mitwirkende'
+        }).addTo(map);
+
+        if (Array.isArray(stops) && stops.length > 0) {
+          const coordinates = stops.map((stop) => [stop.latitude, stop.longitude]);
+
+          // Numbered markers only: deliberately no popups or detailed location cards.
+          stops.forEach((stop, index) => {
+            const number = stop.number ?? index + 1;
+            const icon = L.divIcon({
+              className: 'route-marker-wrapper',
+              html: `<span class="route-marker" aria-label="${number}. ${stop.name}">${number}</span>`,
+              iconSize: [34, 34],
+              iconAnchor: [17, 17]
+            });
+            L.marker([stop.latitude, stop.longitude], {
+              icon,
+              keyboard: true,
+              title: `${number}. ${stop.name}`
+            }).addTo(map);
+          });
+
+          // Route closes back to the first port when returnToStart is true.
+          const shouldReturn = stops[0]?.returnAtEnd === true;
+          const line = shouldReturn ? [...coordinates, coordinates[0]] : coordinates;
+          L.polyline(line, {
+            color: '#1d6370',
+            weight: 3,
+            opacity: 0.82,
+            dashArray: '8 8'
+          }).addTo(map);
+
+          map.fitBounds(L.latLngBounds(line), { padding: [36, 36] });
+        }
+
+        setTimeout(() => map.invalidateSize(), 60);
+      } catch (error) {
+        console.error(error);
+        const placeholder = wrapper.querySelector('[data-route-placeholder]');
+        if (placeholder instanceof HTMLElement) {
+          placeholder.hidden = false;
+          placeholder.innerHTML = `
+            <div class="eyebrow">Karte nicht verfügbar</div>
+            <h3>Die Reiseroute konnte nicht geladen werden.</h3>
+            <p>Bitte prüfe die Internetverbindung und lade die Seite erneut.</p>
+          `;
+        }
+      }
+    }, { once: true });
+  });
+</script>

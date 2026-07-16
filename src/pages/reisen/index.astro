@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('reisen', ({data}) => import.meta.env.DEV || !data.draft))
+  .sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout title="Reisen" description="Persönliche Reiseberichte und Kreuzfahrterfahrungen von Bernd.">
+  <header class="page-header"><div class="container"><div class="eyebrow">Unterwegs</div><h1>Reisen</h1><p class="lead">Erinnerungen, Erfahrungen und fotografische Momente aus bereits durchgeführten Reisen.</p></div></header>
+  <section class="section"><div class="container"><div class="grid">
+    {entries.map((entry) => <ContentCard href={`/reisen/${entry.id}/`} eyebrow={entry.data.destination} title={entry.data.title} description={entry.data.description} tags={entry.data.tags} />)}
+  </div></div></section>
+</BaseLayout>

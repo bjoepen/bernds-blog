@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 900" role="img" aria-labelledby="title desc">
+  <title id="title">Mittelmeerreise mit der MSC Seaview</title>
+  <desc id="desc">Illustration mit Kreuzfahrtschiff, mediterraner Küste, Leuchtturm und warmem Abendlicht.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8ddd0"/>
+      <stop offset=".52" stop-color="#f4e6c9"/>
+      <stop offset="1" stop-color="#b9d9d8"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#76aeb6"/>
+      <stop offset="1" stop-color="#1d6370"/>
+    </linearGradient>
+    <filter id="paper">
+      <feTurbulence baseFrequency=".55" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feBlend in="SourceGraphic" in2="noise" mode="soft-light"/>
+    </filter>
+  </defs>
+  <rect width="1800" height="900" fill="url(#sky)"/>
+  <circle cx="1420" cy="190" r="92" fill="#d6b783" opacity=".88"/>
+  <path d="M0 490 C220 410 390 520 590 440 C850 335 990 510 1215 420 C1440 330 1590 410 1800 350 L1800 900 L0 900Z" fill="#7d9a91" opacity=".45"/>
+  <path d="M0 610 C270 520 470 710 760 575 C980 470 1230 635 1495 535 C1620 488 1710 500 1800 470 L1800 900 L0 900Z" fill="url(#sea)"/>
+  <path d="M0 695 C320 590 510 790 830 650 C1120 525 1370 705 1800 585 L1800 900 L0 900Z" fill="#124650" opacity=".82"/>
+  <g transform="translate(420 390)">
+    <path d="M0 190 H760 L675 295 H115Z" fill="#f5f0e5" stroke="#173540" stroke-width="8"/>
+    <rect x="150" y="80" width="480" height="115" rx="8" fill="#f5f0e5" stroke="#173540" stroke-width="7"/>
+    <rect x="230" y="18" width="315" height="80" rx="8" fill="#f5f0e5" stroke="#173540" stroke-width="7"/>
+    <rect x="354" y="-46" width="74" height="70" fill="#f5f0e5" stroke="#173540" stroke-width="7"/>
+    <path d="M390 -46 V-102" stroke="#173540" stroke-width="9"/>
+    <path d="M392 -95 L485 -45 L392 -35Z" fill="#d6b783"/>
+    <g fill="#1d6370">
+      <circle cx="210" cy="130" r="10"/><circle cx="260" cy="130" r="10"/><circle cx="310" cy="130" r="10"/>
+      <circle cx="360" cy="130" r="10"/><circle cx="410" cy="130" r="10"/><circle cx="460" cy="130" r="10"/>
+      <circle cx="510" cy="130" r="10"/><circle cx="560" cy="130" r="10"/>
+    </g>
+  </g>
+  <g transform="translate(80 335)">
+    <path d="M0 270 C95 190 165 158 280 115 C330 180 360 250 405 320 H0Z" fill="#365a60" opacity=".88"/>
+    <rect x="85" y="105" width="42" height="148" fill="#f5f0e5" stroke="#173540" stroke-width="6"/>
+    <path d="M72 105 H140 L126 72 H87Z" fill="#d6b783" stroke="#173540" stroke-width="6"/>
+    <rect x="96" y="145" width="20" height="32" fill="#1d6370"/>
+  </g>
+  <path d="M1260 125 q35 -28 70 0 q35 -28 70 0" fill="none" stroke="#173540" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1510 300 q26 -20 52 0 q26 -20 52 0" fill="none" stroke="#173540" stroke-width="7" stroke-linecap="round"/>
+  <rect width="1800" height="900" filter="url(#paper)" opacity=".12"/>
+</svg>

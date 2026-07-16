@@ -1,0 +1,45 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { entry, editorial = false } = Astro.props;
+const d = entry.data;
+const title = d.seoTitle || d.title;
+const description = d.seoDescription || d.description;
+const image = d.ogImage || d.heroImage || '/icons/social-card.svg';
+---
+<BaseLayout title={title} description={description} image={image} canonical={d.canonical} type="article">
+  {editorial ? (
+    <header class="page-header page-header--editorial">
+      <div class="container">
+        <slot name="hero" />
+        <div class="chips chips--editorial">
+          <span class="chip">{d.pubDate.toLocaleDateString('de-DE')}</span>
+          {d.tags?.slice(0, 4).map((tag) => <span class="chip">{tag}</span>)}
+        </div>
+      </div>
+    </header>
+  ) : (
+    <header class="page-header">
+      <div class="container prose">
+        <div class="eyebrow">{d.categories?.[0] ?? 'Bernds Blog'}</div>
+        <h1>{d.title}</h1>
+        {d.subtitle && <p class="lead">{d.subtitle}</p>}
+        <p class="lead">{d.description}</p>
+        {d.heroImage && (
+          <figure class="article-hero">
+            <img src={d.heroImage} alt={d.heroAlt || d.title} loading="eager" decoding="async" />
+          </figure>
+        )}
+        <div class="chips">
+          <span class="chip">{d.pubDate.toLocaleDateString('de-DE')}</span>
+          {d.tags?.slice(0, 4).map((tag) => <span class="chip">{tag}</span>)}
+        </div>
+      </div>
+    </header>
+  )}
+  <section class="section">
+    <div class="container content-grid">
+      <article class="prose"><slot /></article>
+      <aside class="sidebar"><slot name="sidebar" /></aside>
+    </div>
+  </section>
+</BaseLayout>

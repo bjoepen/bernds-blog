@@ -1,0 +1,31 @@
+---
+interface Props {
+  name:
+    | 'seagull' | 'ship' | 'camera' | 'compass'
+    | 'anchor' | 'lighthouse' | 'marker' | 'calendar'
+    | 'waves' | 'sun' | 'cloud' | 'rain' | 'wind'
+    | 'partly-cloudy' | 'notebook'
+    | 'feather' | 'north-star' | 'travel-notebook'
+    | 'road' | 'stay';
+  size?: number;
+  label?: string;
+  class?: string;
+}
+
+const {
+  name,
+  size = 24,
+  label,
+  class: className = ''
+} = Astro.props;
+
+const decorative = !label;
+const iconUrl = `/icons/northern-lines/${name}.svg`;
+---
+<span
+  class:list={['nl-icon', `nl-icon--${name}`, className]}
+  style={`--nl-icon-size:${size}px;--nl-icon-url:url("${iconUrl}")`}
+  role={decorative ? undefined : 'img'}
+  aria-hidden={decorative ? 'true' : undefined}
+  aria-label={label}
+></span>

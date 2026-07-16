@@ -1,0 +1,124 @@
+---
+import NorthernLineIcon from './icons/NorthernLineIcon.astro';
+import 'leaflet/dist/leaflet.css';
+
+const {
+  latitude,
+  longitude,
+  zoom = 14,
+  spots = [],
+  label = 'Karte mit Fotospots laden',
+  note = 'Beim Laden werden Kartenkacheln von OpenStreetMap abgerufen. Dabei wird Ihre IP-Adresse an den Kartenserver übertragen.'
+} = Astro.props;
+---
+<div
+  class="map-consent"
+  data-map-wrap
+  data-lat={latitude}
+  data-lon={longitude}
+  data-zoom={zoom}
+  data-spots={JSON.stringify(spots)}
+>
+  <div class="map-placeholder" data-map-placeholder>
+    <span class="map-placeholder-icon" aria-hidden="true"><NorthernLineIcon name="marker" size={34} /></span>
+    <h3>Interaktive Karte</h3>
+    <p>Beim Laden werden Kartenkacheln von OpenStreetMap abgerufen. Dabei wird Ihre IP-Adresse an den Kartenserver übertragen.</p>
+    <button class="button" type="button" data-load-map>{label}</button>
+  </div>
+  <div class="map" data-map hidden aria-label="Interaktive Karte mit Fotospots"></div>
+  <p class="map-error" data-map-error hidden>Die Karte konnte nicht geladen werden. Bitte prüfen Sie die Internetverbindung und laden Sie die Seite erneut.</p>
+</div>
+
+<script>
+  const escapeHtml = (value) => String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+
+  document.querySelectorAll('[data-map-wrap]').forEach((container) => {
+    const button = container.querySelector('[data-load-map]');
+
+    button?.addEventListener('click', async () => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      button.disabled = true;
+      button.textContent = 'Karte wird geladen …';
+
+      try {
+        const leafletModule = await import('leaflet');
+        const L = leafletModule.default ?? leafletModule;
+        const mapElement = container.querySelector('[data-map]');
+        const placeholder = container.querySelector('[data-map-placeholder]');
+        const errorElement = container.querySelector('[data-map-error]');
+        if (!(mapElement instanceof HTMLElement)) return;
+
+        const lat = Number(container.getAttribute('data-lat'));
+        const lon = Number(container.getAttribute('data-lon'));
+        const zoom = Number(container.getAttribute('data-zoom'));
+        const spots = JSON.parse(container.getAttribute('data-spots') || '[]');
+
+        mapElement.hidden = false;
+        if (placeholder instanceof HTMLElement) placeholder.hidden = true;
+        if (errorElement instanceof HTMLElement) errorElement.hidden = true;
+
+        const map = L.map(mapElement, {
+          scrollWheelZoom: false,
+          zoomControl: true
+        }).setView([lat, lon], zoom);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          minZoom: 2,
+          maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap-Mitwirkende</a>'
+        }).addTo(map);
+
+        const bounds = [];
+        if (Array.isArray(spots) && spots.length > 0) {
+          spots.forEach((spot, index) => {
+            const point = [Number(spot.latitude), Number(spot.longitude)];
+            if (!Number.isFinite(point[0]) || !Number.isFinite(point[1])) return;
+            bounds.push(point);
+
+            const marker = L.divIcon({
+              className: 'fieldbook-marker-wrapper',
+              html: `<span class="fieldbook-marker"><b>${index + 1}</b></span>`,
+              iconSize: [38, 38],
+              iconAnchor: [19, 38],
+              popupAnchor: [0, -34]
+            });
+
+            const details = [
+              spot.note && `<p>${escapeHtml(spot.note)}</p>`,
+              spot.bestTime && `<span class="map-popup-chip">${escapeHtml(spot.bestTime)}</span>`,
+              spot.lens && `<span class="map-popup-chip">${escapeHtml(spot.lens)}</span>`
+            ].filter(Boolean).join('');
+
+            L.marker(point, { icon: marker })
+              .addTo(map)
+              .bindPopup(`<div class="map-popup"><strong>${index + 1}. ${escapeHtml(spot.name)}</strong>${details}</div>`);
+          });
+
+          if (bounds.length === 1) map.setView(bounds[0], zoom);
+          if (bounds.length > 1) map.fitBounds(bounds, { padding: [45, 45], maxZoom: zoom });
+        } else {
+          const marker = L.divIcon({
+            className: 'fieldbook-marker-wrapper',
+            html: '<span class="fieldbook-marker"><b>•</b></span>',
+            iconSize: [38, 38],
+            iconAnchor: [19, 38]
+          });
+          L.marker([lat, lon], { icon: marker }).addTo(map);
+        }
+
+        setTimeout(() => map.invalidateSize(), 100);
+      } catch (error) {
+        console.error('Leaflet-Karte konnte nicht geladen werden:', error);
+        const errorElement = container.querySelector('[data-map-error]');
+        if (errorElement instanceof HTMLElement) errorElement.hidden = false;
+        button.disabled = false;
+        button.textContent = 'Erneut versuchen';
+      }
+    });
+  });
+</script>

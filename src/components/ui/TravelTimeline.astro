@@ -1,0 +1,48 @@
+---
+import NorthernLineIcon from '../icons/NorthernLineIcon.astro';
+
+type IconName =
+  | 'seagull' | 'ship' | 'camera' | 'compass'
+  | 'anchor' | 'lighthouse' | 'marker' | 'calendar'
+  | 'waves' | 'sun' | 'cloud' | 'rain' | 'wind'
+  | 'partly-cloudy' | 'notebook'
+  | 'feather' | 'north-star' | 'travel-notebook';
+
+interface TimelineItem {
+  label: string;
+  title: string;
+  text?: string;
+  href?: string;
+  icon?: IconName;
+}
+
+interface Props {
+  title?: string;
+  items: TimelineItem[];
+}
+
+const { title = 'Reiseverlauf', items } = Astro.props;
+---
+<section class="nl-timeline" aria-labelledby="nl-timeline-title">
+  <div class="nl-component-heading">
+    <NorthernLineIcon name="compass" size={28} />
+    <h2 id="nl-timeline-title">{title}</h2>
+  </div>
+
+  <ol class="nl-timeline__list">
+    {items.map((item) => (
+      <li class="nl-timeline__item">
+        <div class="nl-timeline__marker">
+          <NorthernLineIcon name={item.icon || 'marker'} size={22} />
+        </div>
+        <div class="nl-timeline__card">
+          <small>{item.label}</small>
+          {item.href
+            ? <h3><a href={item.href}>{item.title}</a></h3>
+            : <h3>{item.title}</h3>}
+          {item.text && <p>{item.text}</p>}
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>

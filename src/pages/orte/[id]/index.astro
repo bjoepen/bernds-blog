@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import MapConsent from '../../../components/MapConsent.astro';
+import SpotPreview from '../../../components/SpotPreview.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('orte', ({data}) => import.meta.env.DEV || !data.draft);
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const planned = entry.data.visitStatus === 'geplant';
+---
+<ArticleLayout entry={entry}>
+  {planned && (
+    <div class="preparation-intro">
+      <div class="card-number">AUSBLICK & VORBEREITUNG</div>
+      <h2>{entry.data.preparationTitle || `So möchte ich ${entry.data.title} entdecken`}</h2>
+      <p>{entry.data.preparationText || 'Diese Vorschau bündelt meine bisherige Vorbereitung, mögliche Fotospots und Ideen für den späteren Besuch.'}</p>
+    </div>
+  )}
+  <Content />
+
+  {entry.data.spots.length > 0 && (
+    <section class="embedded-section">
+      <div class="eyebrow">Fotospots & Highlights</div>
+      <h2>{planned ? 'Vorgemerkt für die Reise' : 'Meine Fotospots'}</h2>
+      <SpotPreview spots={entry.data.spots} />
+    </section>
+  )}
+
+  <section class="embedded-section">
+    <div class="eyebrow">Karte</div>
+    <h2>{planned ? 'Orientierung vor der Reise' : 'Orientierung vor Ort'}</h2>
+    <MapConsent latitude={entry.data.latitude} longitude={entry.data.longitude} zoom={entry.data.mapZoom} spots={entry.data.spots} />
+  </section>
+
+  <div slot="sidebar" class="card">
+    <div class="card-number">{planned ? 'GEPLANT' : entry.data.country}</div>
+    <h3>Fotografische Hinweise</h3>
+    {entry.data.bestTime && <p><strong>Beste Zeit:</strong> {entry.data.bestTime}</p>}
+    {entry.data.recommendedLens && <p><strong>Objektiv:</strong> {entry.data.recommendedLens}</p>}
+  </div>
+</ArticleLayout>

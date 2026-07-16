@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+  <title>NL-T10 – Stay</title>
+  
+  <path d="m3.5 10.5 8.5-7 8.5 7"/>
+  <path d="M5.5 9.2V20h13V9.2"/>
+  <path d="M9.2 20v-5.8h5.6V20"/>
+  <path d="M8 11.7h2.2M13.8 11.7H16"/>
+
+</svg>

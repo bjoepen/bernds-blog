@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+  <title>NL-E03 – Travel Notebook</title>
+  
+  <path d="M4.2 4.2h6.2c1 0 1.6.4 1.6 1.2v14.4c0-.8-.6-1.2-1.6-1.2H4.2V4.2Z"/>
+  <path d="M19.8 4.2h-6.2c-1 0-1.6.4-1.6 1.2v14.4c0-.8.6-1.2 1.6-1.2h6.2V4.2Z"/>
+  <path d="M16.5 4.2v5.1l-1.5-1-1.4 1V4.2"/>
+  <path d="M6.5 8h3M6.5 11h3M14.5 12h2.8"/>
+
+</svg>

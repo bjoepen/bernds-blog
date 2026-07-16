@@ -1,0 +1,30 @@
+---
+import NorthernLineIcon from '../icons/NorthernLineIcon.astro';
+
+interface ChecklistItem {
+  label: string;
+  done?: boolean;
+}
+
+interface Props {
+  title?: string;
+  items: ChecklistItem[];
+}
+
+const { title = 'Checkliste', items } = Astro.props;
+---
+<section class="nl-checklist" aria-labelledby="nl-checklist-title">
+  <div class="nl-component-heading">
+    <NorthernLineIcon name="travel-notebook" size={28} />
+    <h2 id="nl-checklist-title">{title}</h2>
+  </div>
+
+  <ul>
+    {items.map((item) => (
+      <li class:list={{ 'is-done': item.done }}>
+        <span class="nl-checklist__box" aria-hidden="true">{item.done ? '✓' : ''}</span>
+        <span>{item.label}</span>
+      </li>
+    ))}
+  </ul>
+</section>

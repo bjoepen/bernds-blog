@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+export async function getStaticPaths() {
+  const entries = await getCollection('ausruestung', ({data}) => import.meta.env.DEV || !data.draft);
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<ArticleLayout entry={entry}>
+  <Content />
+  <div slot="sidebar" class="card">
+    <div class="card-number">{entry.data.equipmentType}</div>
+    <h3>{entry.data.manufacturer} {entry.data.model}</h3>
+    {entry.data.rating && <p>{'★'.repeat(entry.data.rating)}{'☆'.repeat(5-entry.data.rating)}</p>}
+  </div>
+</ArticleLayout>

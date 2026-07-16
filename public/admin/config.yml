@@ -1,0 +1,156 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: bjoepen/bernds-blog
+  branch: main
+
+site_url: https://www.beblog.de
+display_url: https://www.beblog.de
+logo_url: /icons/favicon.svg
+
+media_folder: public/images/reisen/uploads
+public_folder: /images/reisen/uploads
+
+publish_mode: simple
+show_preview_links: false
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: reisen
+    label: Reisen
+    label_singular: Reise
+    folder: src/content/reisen
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} · {{destination}} · Draft: {{draft}}"
+    slug: "{{slug}}"
+    fields:
+      - { label: Inhaltstyp, name: type, widget: hidden, default: reisebericht }
+      - { label: Titel, name: title, widget: string, required: true }
+      - { label: Untertitel, name: subtitle, widget: string, required: false }
+      - { label: Kurzbeschreibung, name: description, widget: text, required: true }
+      - { label: Veröffentlichungsdatum, name: pubDate, widget: datetime, format: "YYYY-MM-DD", time_format: false, required: true }
+      - { label: Letzte Aktualisierung, name: updatedDate, widget: datetime, format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: Entwurf, name: draft, widget: boolean, default: true }
+      - { label: Reiseziel, name: destination, widget: string, required: true }
+      - { label: Region oder Länder, name: region, widget: string, required: false }
+      - { label: Schiff, name: ship, widget: string, required: false }
+      - { label: Schiffs-Slug, name: shipSlug, widget: string, required: false }
+      - { label: Reederei, name: operator, widget: string, required: false }
+      - { label: Reisebeginn, name: startDate, widget: datetime, format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: Reiseende, name: endDate, widget: datetime, format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: Dauer, name: duration, widget: string, required: false }
+      - { label: Bewertung, name: rating, widget: number, value_type: float, min: 1, max: 5, required: false }
+      - { label: Würde ich wieder buchen?, name: wouldBookAgain, widget: boolean, required: false }
+      - { label: Hero-Bild, name: heroImage, widget: image, required: false }
+      - { label: Hero-Alternativtext, name: heroAlt, widget: string, required: false }
+      - { label: Hero-Bildunterschrift, name: heroCaption, widget: string, required: false }
+      - { label: Routentitel, name: routeTitle, widget: string, required: false }
+      - { label: Routeneinleitung, name: routeIntro, widget: text, required: false }
+      - label: Kartenzentrum
+        name: routeCenter
+        widget: list
+        min: 2
+        max: 2
+        default: [42.5, 7.5]
+        field: { label: Koordinate, name: coordinate, widget: number, value_type: float }
+      - { label: Kartenzoom, name: routeZoom, widget: number, value_type: int, min: 1, max: 19, default: 5 }
+      - label: Routenstationen
+        name: routeStops
+        widget: list
+        required: false
+        fields:
+          - { label: Nummer, name: number, widget: number, value_type: int, min: 1 }
+          - { label: Ort oder Hafen, name: name, widget: string }
+          - { label: Datum, name: date, widget: string, required: false }
+          - { label: Breitengrad, name: latitude, widget: number, value_type: float }
+          - { label: Längengrad, name: longitude, widget: number, value_type: float }
+          - { label: Rückkehr zum Start, name: returnAtEnd, widget: boolean, default: false, required: false }
+      - { label: Galerietitel, name: galleryTitle, widget: string, required: false }
+      - label: Galerie
+        name: gallery
+        widget: list
+        required: false
+        fields:
+          - { label: Bild, name: src, widget: image }
+          - { label: Alternativtext, name: alt, widget: string }
+          - { label: Bildunterschrift, name: caption, widget: string, required: false }
+          - { label: Breite, name: width, widget: number, value_type: int, required: false }
+          - { label: Höhe, name: height, widget: number, value_type: int, required: false }
+      - { label: Kategorien, name: categories, widget: list, required: false, default: [Reisen] }
+      - { label: Schlagwörter, name: tags, widget: list, required: false }
+      - { label: SEO-Titel, name: seoTitle, widget: string, required: false }
+      - { label: SEO-Beschreibung, name: seoDescription, widget: text, required: false }
+      - { label: Canonical URL, name: canonical, widget: string, required: false }
+      - { label: OpenGraph-Bild, name: ogImage, widget: image, required: false }
+      - { label: Inhalt, name: body, widget: markdown, required: false }
+
+  - name: reisetage
+    label: Reisetage
+    label_singular: Reisetag
+    folder: src/content/reisetage
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: "Tag {{day}} · {{title}} · Draft: {{draft}}"
+    slug: "{{slug}}"
+    fields:
+      - { label: Inhaltstyp, name: type, widget: hidden, default: reisetag }
+      - label: Art des Tages
+        name: dayType
+        widget: select
+        options:
+          - { label: Anreise, value: anreise }
+          - { label: Landgang, value: landgang }
+          - { label: Seetag, value: seetag }
+          - { label: Ausschiffung, value: ausschiffung }
+        default: landgang
+      - { label: Titel, name: title, widget: string, required: true }
+      - { label: Untertitel, name: subtitle, widget: string, required: false }
+      - { label: Kurzbeschreibung, name: description, widget: text, required: true }
+      - { label: Veröffentlichungsdatum, name: pubDate, widget: datetime, format: "YYYY-MM-DD", time_format: false, required: true }
+      - { label: Reisedatum, name: travelDate, widget: datetime, format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: Entwurf, name: draft, widget: boolean, default: true }
+      - { label: Zugehörige Reise, name: trip, widget: string, required: true }
+      - { label: Tag, name: day, widget: number, value_type: int, min: 1, required: true }
+      - { label: Ort, name: location, widget: string, required: true }
+      - { label: Land, name: country, widget: string, required: false }
+      - { label: Ankunft, name: arrival, widget: string, required: false }
+      - { label: Abfahrt, name: departure, widget: string, required: false }
+      - { label: Aktivität, name: activity, widget: string, required: false }
+      - { label: Tenderhafen, name: tender, widget: boolean, default: false }
+      - { label: Hafen-Slug, name: portSlug, widget: string, required: false }
+      - { label: Wetter, name: weather, widget: string, required: false }
+      - { label: Temperatur, name: temperature, widget: string, required: false }
+      - { label: Fotografische Bewertung, name: photoRating, widget: number, value_type: float, min: 1, max: 5, required: false }
+      - { label: Moment des Tages, name: momentOfDay, widget: text, required: false }
+      - { label: Kleine Erinnerung, name: smallMemory, widget: text, required: false }
+      - { label: Hero-Bild, name: heroImage, widget: image, required: false }
+      - { label: Hero-Alternativtext, name: heroAlt, widget: string, required: false }
+      - { label: Hero-Bildunterschrift, name: heroCaption, widget: string, required: false }
+      - { label: Galerietitel, name: galleryTitle, widget: string, required: false }
+      - label: Galerie
+        name: gallery
+        widget: list
+        required: false
+        fields:
+          - { label: Bild, name: src, widget: image }
+          - { label: Alternativtext, name: alt, widget: string }
+          - { label: Bildunterschrift, name: caption, widget: string, required: false }
+          - { label: Breite, name: width, widget: number, value_type: int, required: false }
+          - { label: Höhe, name: height, widget: number, value_type: int, required: false }
+      - { label: Kategorien, name: categories, widget: list, required: false, default: [Reisetagebuch] }
+      - { label: Schlagwörter, name: tags, widget: list, required: false }
+      - { label: SEO-Titel, name: seoTitle, widget: string, required: false }
+      - { label: SEO-Beschreibung, name: seoDescription, widget: text, required: false }
+      - { label: Canonical URL, name: canonical, widget: string, required: false }
+      - { label: OpenGraph-Bild, name: ogImage, widget: image, required: false }
+      - { label: Inhalt, name: body, widget: markdown, required: false }

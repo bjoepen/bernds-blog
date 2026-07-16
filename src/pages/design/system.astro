@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NorthernLineIcon from '../../components/icons/NorthernLineIcon.astro';
+
+const principles = [
+  ['Ruhe vor Effekten','Der Inhalt bleibt wichtiger als Dekoration.'],
+  ['Weißraum ist Inhalt','Abstände schaffen Orientierung.'],
+  ['Bilder erzählen','Fotos tragen Erinnerungen.'],
+  ['Chronologie ist optional','Timelines werden nicht erzwungen.'],
+  ['Eine Sprache','Farben, Symbole und Komponenten folgen denselben Regeln.']
+];
+---
+<BaseLayout title="Northern Lines Design System" description="Interne Übersicht." noindex={true}>
+  <a class="nl-design-backlink" href="/design/">← Design-Übersicht</a>
+  <header class="page-header"><div class="container">
+    <div class="eyebrow">RC6.0a · Build 4.1</div>
+    <h1>Northern Lines Design System</h1>
+    <p class="lead">Die gemeinsame visuelle und redaktionelle Sprache von Bernds Blog.</p>
+  </div></header>
+
+  <section class="section"><div class="container nl-system-overview">
+    <div class="nl-system-overview__intro">
+      <NorthernLineIcon name="seagull" size={64} />
+      <blockquote>Nicht mehr Funktionen. Mehr Atmosphäre.</blockquote>
+    </div>
+
+    <div class="nl-system-principles">
+      {principles.map(([title,text]) => (
+        <article><h2>{title}</h2><p>{text}</p></article>
+      ))}
+    </div>
+
+    <section class="nl-system-categories">
+      <article class="nl-system-category--travel">
+        <div class="nl-system-category__icons">
+          <NorthernLineIcon name="ship" size={30}/>
+          <NorthernLineIcon name="road" size={30}/>
+          <NorthernLineIcon name="stay" size={30}/>
+        </div>
+        <h2>Reisen</h2>
+        <p>Kreuzfahrten, Roadtrips, Aufenthalte und andere Reiseformen.</p>
+      </article>
+      <article>
+        <NorthernLineIcon name="camera" size={34}/>
+        <h2>Fotografie</h2>
+        <p>Große Bilder und ruhige Galerien.</p>
+      </article>
+      <article>
+        <NorthernLineIcon name="travel-notebook" size={34}/>
+        <h2>Redaktion</h2>
+        <p>Momente, Tipps und persönliche Notizen.</p>
+      </article>
+    </section>
+
+    <nav class="nl-system-links">
+      <a href="/design/icons/">Icon Library</a>
+      <a href="/design/ui/">UI Components</a>
+          <a href="/design/editorial/">Editorial Foundations</a>
+          <a href="/design/heroes/">Hero Collection</a>
+    </nav>
+  </div></section>
+</BaseLayout>

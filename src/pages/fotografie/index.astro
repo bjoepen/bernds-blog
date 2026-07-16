@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { getCollection } from 'astro:content';
+const entries = (await getCollection('artikel', ({data}) => (import.meta.env.DEV || !data.draft) && data.section === 'Fotografie'))
+  .sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout title="Fotografie" description="Reisefotografie, Erfahrungen und praktische Hinweise.">
+  <header class="page-header"><div class="container"><div class="eyebrow">Durch den Sucher</div><h1>Fotografie</h1><p class="lead">Erfahrungen mit Motiven, Licht und Ausrüstung auf Reisen.</p></div></header>
+  <section class="section"><div class="container"><div class="grid">
+    {entries.length ? entries.map((entry) => <ContentCard href={`/fotografie/${entry.id}/`} eyebrow={entry.data.section} title={entry.data.title} description={entry.data.description} tags={entry.data.tags} />) : <div class="notice">Die ersten Fotografieartikel entstehen mit den Reiseberichten.</div>}
+  </div></div></section>
+</BaseLayout>

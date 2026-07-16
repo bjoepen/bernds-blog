@@ -1,0 +1,9 @@
+---
+const { href, eyebrow, title, description, tags = [] } = Astro.props;
+---
+<a class="card card-link" href={href}>
+  <div class="card-number">{eyebrow}</div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  {tags.length > 0 && <div class="chips">{tags.slice(0,3).map((tag) => <span class="chip">{tag}</span>)}</div>}
+</a>

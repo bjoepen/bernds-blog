@@ -1,0 +1,20 @@
+---
+const { spots = [] } = Astro.props;
+---
+{spots.length > 0 && (
+  <div class="spot-preview-grid">
+    {spots.map((spot, index) => (
+      <article class="spot-preview-card">
+        <div class="spot-preview-head">
+          <span class="spot-preview-number">{index + 1}</span>
+          <h3>{spot.name}</h3>
+        </div>
+        {spot.note && <p>{spot.note}</p>}
+        <div class="chips">
+          {spot.bestTime && <span class="chip">{spot.bestTime}</span>}
+          {spot.lens && <span class="chip">{spot.lens}</span>}
+        </div>
+      </article>
+    ))}
+  </div>
+)}

@@ -1,0 +1,30 @@
+---
+import NorthernLineIcon from '../icons/NorthernLineIcon.astro';
+
+interface Props {
+  condition?: 'sun' | 'partly-cloudy' | 'cloud' | 'rain' | 'wind';
+  title?: string;
+  temperature?: string;
+  wind?: string;
+  note?: string;
+}
+
+const {
+  condition = 'partly-cloudy',
+  title = 'Wetter',
+  temperature,
+  wind,
+  note
+} = Astro.props;
+---
+<aside class="nl-weather-card">
+  <NorthernLineIcon name={condition} size={42} />
+  <div>
+    <h2>{title}</h2>
+    <div class="nl-weather-card__facts">
+      {temperature && <strong>{temperature}</strong>}
+      {wind && <span>{wind}</span>}
+    </div>
+    {note && <p>{note}</p>}
+  </div>
+</aside>

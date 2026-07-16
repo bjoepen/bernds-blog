@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NorthernPanel from '../../components/ui/NorthernPanel.astro';
+import TravelTimeline from '../../components/ui/TravelTimeline.astro';
+import PhotoSettings from '../../components/ui/PhotoSettings.astro';
+import WeatherSummary from '../../components/ui/WeatherSummary.astro';
+import TravelChecklist from '../../components/ui/TravelChecklist.astro';
+import QuoteCard from '../../components/ui/QuoteCard.astro';
+import RouteSummary from '../../components/ui/RouteSummary.astro';
+
+const timeline = [
+  {
+    label: 'Tag 1 · 11. Oktober 2025',
+    title: 'Anreise und Einschiffung',
+    text: 'Von Düsseldorf nach Barcelona und die ersten Eindrücke an Bord.',
+    icon: 'ship'
+  },
+  {
+    label: 'Tag 2 · 12. Oktober 2025',
+    title: 'Cannes',
+    text: 'Unser erster Hafen – die MSC Seaview liegt vor Anker.',
+    icon: 'anchor'
+  },
+  {
+    label: 'Tag 6 · 16. Oktober 2025',
+    title: 'Auf See',
+    text: 'Ein ganzer Tag für das Schiff, das Meer und kleine Beobachtungen.',
+    icon: 'waves'
+  }
+] as const;
+
+const checklist = [
+  { label: 'Hero-Bild vorbereitet', done: true },
+  { label: 'Alt-Texte gepflegt', done: true },
+  { label: 'Galerie geprüft' },
+  { label: 'Produktions-Build erfolgreich' }
+];
+---
+<BaseLayout
+  title="Northern Lines UI"
+  description="Interne Vorschau der Northern Lines UI-Komponenten."
+  noindex={true}
+>
+  <a class="nl-design-backlink" href="/design/">← Design-Übersicht</a>
+  <header class="page-header">
+    <div class="container">
+      <div class="eyebrow">RC5.0 · Component Library</div>
+      <h1>Northern Lines UI</h1>
+      <p class="lead">
+        Eine ruhige, konsistente Komponentenbibliothek für Reisegeschichten,
+        Fotografie und redaktionelle Hinweise.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container nl-ui-preview">
+      <NorthernPanel
+        title="Eine kleine Beobachtung"
+        eyebrow="Redaktion"
+        icon="feather"
+        variant="sea"
+      >
+        <p>
+          Nicht die größte Sehenswürdigkeit bleibt immer in Erinnerung.
+          Manchmal ist es eine Getränkedose in einer eleganten Bar.
+        </p>
+      </NorthernPanel>
+
+      <TravelTimeline title="Beispielhafter Reiseverlauf" items={timeline} />
+
+      <div class="nl-ui-preview__columns">
+        <PhotoSettings
+          camera="Fujifilm X-A2"
+          lens="Sigma 18–50 mm F2.8"
+          focalLength="28 mm"
+          aperture="F5.6"
+          shutter="1/250 s"
+          iso="200"
+          note="Beispieldaten für die Vorschau."
+        />
+
+        <WeatherSummary
+          condition="partly-cloudy"
+          title="Sonne und Wolken"
+          temperature="22 °C"
+          wind="leichter Wind"
+          note="Angenehmes Licht für den ersten Landgang."
+        />
+      </div>
+
+      <RouteSummary
+        location="Cannes"
+        country="Frankreich"
+        arrival="09:00"
+        departure="19:00"
+        tender={true}
+        note="Die Zeitangaben stammen aus dem Reiseverlauf."
+      />
+
+      <div class="nl-ui-preview__columns">
+        <TravelChecklist title="Vor der Veröffentlichung" items={checklist} />
+
+        <QuoteCard source="Bernds Notizbuch">
+          <p>
+            Eine Reise wird nicht durch die Zahl der besuchten Orte besonders,
+            sondern durch die Momente, die später noch greifbar sind.
+          </p>
+        </QuoteCard>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+import NorthernLineIcon from './icons/NorthernLineIcon.astro';
+
+interface Props {
+  type: 'moment' | 'tip' | 'notebook';
+  title?: string;
+}
+
+const { type, title } = Astro.props;
+
+const config = {
+  moment: {
+    icon: 'feather',
+    defaultTitle: 'Der Moment des Tages',
+    className: 'editorial-callout--moment'
+  },
+  tip: {
+    icon: 'north-star',
+    defaultTitle: 'Unser Tipp',
+    className: 'editorial-callout--tip'
+  },
+  notebook: {
+    icon: 'travel-notebook',
+    defaultTitle: 'Bernds Notizbuch',
+    className: 'editorial-callout--notebook'
+  }
+} as const;
+
+const current = config[type];
+---
+<aside
+  class:list={['editorial-callout', current.className]}
+  aria-label={title || current.defaultTitle}
+>
+  <NorthernLineIcon
+    name={current.icon}
+    size={34}
+  />
+  <div class="editorial-callout__content">
+    <h2 class="editorial-callout__title">{title || current.defaultTitle}</h2>
+    <div class="editorial-callout__body">
+      <slot />
+    </div>
+  </div>
+</aside>

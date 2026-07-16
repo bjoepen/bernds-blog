@@ -1,0 +1,54 @@
+# Abhängigkeiten
+node_modules/
+
+# Astro: automatisch erzeugte Dateien
+.astro/
+dist/
+
+# Umgebungsvariablen und lokale Secrets
+.env
+.env.*
+!.env.example
+
+# npm / Package Manager
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Test- und Coverage-Ausgaben
+coverage/
+.nyc_output/
+
+# Temporäre Dateien
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+**/.DS_Store
+._*
+__MACOSX/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Lokale IDE-/Editorzustände
+.vscode/settings.json
+.idea/
+
+# Lokale Logs und Caches
+*.log
+.cache/
+.parcel-cache/
+
+# Lokale Deployment- und Backup-Dateien
+*.backup
+*.bak
+dist-backup-*/
+deploy-local/

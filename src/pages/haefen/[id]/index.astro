@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import MapConsent from '../../../components/MapConsent.astro';
+import TravelGallery from '../../../components/TravelGallery.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('haefen', ({ data }) => import.meta.env.DEV || !data.draft);
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<ArticleLayout entry={entry}>
+  {d.heroImage && (
+    <figure class="article-hero">
+      <img src={d.heroImage} alt={d.heroAlt || d.title} width="1800" height="900" loading="eager" decoding="async" />
+      {d.heroCaption && <figcaption>{d.heroCaption}</figcaption>}
+    </figure>
+  )}
+  <Content />
+  <MapConsent latitude={d.latitude} longitude={d.longitude} zoom={d.mapZoom} />
+  <TravelGallery images={d.gallery || []} title={d.galleryTitle || `Bilder aus ${d.title}`} />
+
+  <div slot="sidebar" class="card">
+    <div class="card-number">HAFEN</div>
+    <h3>{d.title}</h3>
+    <p><strong>Land:</strong> {d.country}</p>
+    {(d.arrival || d.departure) && <p><strong>Liegezeit:</strong><br />{d.arrival || '–'} bis {d.departure || '–'}</p>}
+    {d.tender && <p><strong>Hinweis:</strong> Tenderhafen</p>}
+    {d.recommendedLens && <p><strong>Objektiv:</strong> {d.recommendedLens}</p>}
+    {d.bestTime && <p><strong>Beste Zeit:</strong> {d.bestTime}</p>}
+  </div>
+</ArticleLayout>

@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NLHero from '../../components/northern-lines/NLHero.astro';
+import NLSectionDivider from '../../components/northern-lines/NLSectionDivider.astro';
+import NLQuote from '../../components/northern-lines/NLQuote.astro';
+import NorthernPanel from '../../components/ui/NorthernPanel.astro';
+
+const heroImage = '/images/reisen/msc-seaview-mittelmeer-2025/tag-01/hero.webp';
+---
+
+<BaseLayout
+  title="Northern Lines Editorial Foundations"
+  description="Interne Vorschau der neuen Northern-Lines-Magazinkomponenten."
+  noindex={true}
+>
+  <section class="section">
+    <div class="container nl-editorial-preview">
+      <NLHero
+        eyebrow="Tag 1 · Anreise und Einschiffung"
+        title="Der Moment, in dem die Reise wirklich begann"
+        intro="Zwischen Vorfreude, ersten Eindrücken und dem Gefühl, nun tatsächlich an Bord zu sein."
+        image={heroImage}
+        imageAlt="Schornsteinaufbau und MSC-Logo der MSC Seaview unter blauem Himmel"
+        caption="Der erste Rundgang an Bord der MSC Seaview."
+        icon="ship"
+      />
+
+      <NLSectionDivider
+        title="Der erste Eindruck"
+        subtitle="Zwischen Größe, Lautstärke und dem Versuch, in Ruhe anzukommen."
+        icon="seagull"
+      />
+
+      <NorthernPanel
+        title="Editorial Foundation"
+        eyebrow="Build 4"
+        icon="travel-notebook"
+        variant="quiet"
+      >
+        <p>
+          Diese Vorschauseite testet die neuen Magazin-Komponenten, ohne
+          bestehende Reisebeiträge automatisch umzubauen.
+        </p>
+      </NorthernPanel>
+
+      <NLSectionDivider
+        title="Glanz und Glitzer"
+        subtitle="Spiegelungen, Lichtlinien und große Inszenierungen."
+        icon="camera"
+        compact={true}
+      />
+
+      <NLQuote source="Bernds Notizbuch" icon="feather" variant="sea">
+        <p>
+          Eine Reise beginnt nicht erst beim Ablegen. Manchmal beginnt sie
+          mit dem ersten Blick nach oben.
+        </p>
+      </NLQuote>
+
+      <NLSectionDivider
+        title="Andere Reiseformen"
+        subtitle="Northern Lines ist nicht auf Kreuzfahrten beschränkt."
+        icon="road"
+      />
+
+      <div class="nl-editorial-preview__travel">
+        <article>
+          <NLSectionDivider title="Roadtrip" icon="road" compact={true} />
+          <p>Für Reisen mit Auto, Mietwagen oder Camper.</p>
+        </article>
+        <article>
+          <NLSectionDivider title="Aufenthalt" icon="stay" compact={true} />
+          <p>Für Hotel, Ferienhaus, Wohnung oder Lodge.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

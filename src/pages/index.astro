@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContentCard from '../components/ContentCard.astro';
+import { getCollection } from 'astro:content';
+
+const allReisen = await getCollection('reisen', ({ data }) => import.meta.env.DEV || !data.draft);
+const reisen = allReisen.sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0,3);
+---
+<BaseLayout title="Bernds Blog" description="Persönliche Reiseberichte, Reisefotografie und Erfahrungen unterwegs.">
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow">Persönlich · Erfahren · Unterwegs</div>
+      <h1>Reisen bewusst erleben.</h1>
+      <p class="lead">Ich erzähle von meinen Reisen, fotografischen Entdeckungen und den kleinen Erfahrungen, die in klassischen Reiseführern oft keinen Platz finden.</p>
+      <div class="hero-card">
+        <div class="hero-copy">
+          <div class="eyebrow">Die Idee hinter diesem Blog</div>
+          <h2>Gestalten statt nur reisen.</h2>
+          <p>Eine Reise beginnt nicht erst am Hafen. Sie wächst aus Sehnsucht, Vorbereitung, Begegnungen und dem eigenen Blick auf einen Ort. Dieser Blog sammelt genau diese Erfahrungen.</p>
+          <a class="button" href="/ueber/">Warum dieser Blog? →</a>
+        </div>
+        <figure class="hero-art hero-art--image">
+          <img
+            src="/images/heroes/northern-lines/hero-07-reisen.png"
+            alt="Reisekoffer, Kamera, Reisepass, Landkarte und Kompass vor einer ruhigen Northern-Lines-Landschaft"
+            width="1536"
+            height="1024"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow">Der rote Faden</div>
+      <h2>Reisen | Fotografieren | Gestalten</h2>
+      <div class="grid">
+        <article class="card"><div class="card-number">01 · REISEN</div><h3>Erfahrungen statt Prospekte</h3><p>Persönliche Berichte über Orte, Schiffe, Erwartungen und das, was tatsächlich geblieben ist.</p></article>
+        <article class="card"><div class="card-number">02 · FOTOGRAFIEREN</div><h3>Mit offenem Blick</h3><p>Fotospots, Motive und praktische Hinweise – nicht als Lehrbuch, sondern aus eigener Erfahrung.</p></article>
+        <article class="card"><div class="card-number">03 · GESTALTEN</div><h3>Aus Erlebnissen lernen</h3><p>Wie Vorbereitung, Notizen und Reflexion dabei helfen, eine Reise bewusster wahrzunehmen.</p></article>
+      </div>
+    </div>
+  </section>
+
+  {reisen.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="eyebrow">Erste Geschichten</div>
+        <h2>Reisen im Blog</h2>
+        <div class="grid">
+          {reisen.map((entry) => (
+            <ContentCard href={`/reisen/${entry.id}/`} eyebrow={entry.data.destination} title={entry.data.title} description={entry.data.description} tags={entry.data.tags} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

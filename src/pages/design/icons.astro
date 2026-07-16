@@ -1,0 +1,269 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NorthernLineIcon from '../../components/icons/NorthernLineIcon.astro';
+
+const groups = [
+  {
+    key: 'master',
+    title: 'Master Symbols',
+    description: 'Die grundlegenden Zeichen der Northern-Lines-Identität.',
+    symbols: [
+      ['seagull', 'NL-001', 'Seagull', 'Markensymbol, Signatur und redaktioneller Auftakt', 'Approved'],
+      ['ship', 'NL-002', 'Ship', 'Kreuzfahrt, Schiff und Seereise', 'Approved'],
+      ['camera', 'NL-003', 'Camera', 'Fotografie und Bildgeschichten', 'Approved'],
+      ['compass', 'NL-004', 'Compass', 'Orientierung, Reise und Navigation', 'Approved']
+    ]
+  },
+  {
+    key: 'travel',
+    title: 'Travel',
+    description: 'Symbole für Wege, Orte und unterschiedliche Reisearten.',
+    symbols: [
+      ['anchor', 'NL-T05', 'Anchor', 'Tenderhafen, Ankern und maritime Hinweise', 'Approved'],
+      ['lighthouse', 'NL-T06', 'Lighthouse', 'Küste, Orientierung und markante Orte', 'Approved'],
+      ['marker', 'NL-T07', 'Marker', 'Ort, Ziel und Kartenbezug', 'Approved'],
+      ['calendar', 'NL-T08', 'Calendar', 'Datum, Reisetag und Reiseplanung', 'Approved'],
+      ['road', 'NL-T09', 'Road', 'Roadtrip, Mietwagen, Camper und Tagesausflug', 'Approved'],
+      ['stay', 'NL-T10', 'Stay', 'Hotel, Ferienhaus, Wohnung, Lodge und Unterkunft', 'Approved']
+    ]
+  },
+  {
+    key: 'nature',
+    title: 'Nature',
+    description: 'Wetter, Meer und natürliche Bedingungen.',
+    symbols: [
+      ['waves', 'NL-N09', 'Waves', 'Meer, Seetag und Wasser', 'Approved'],
+      ['sun', 'NL-N10', 'Sun', 'Sonniges Wetter', 'Approved'],
+      ['partly-cloudy', 'NL-N11', 'Partly Cloudy', 'Sonne und Wolken', 'Approved'],
+      ['cloud', 'NL-N12', 'Cloud', 'Bewölkung', 'Approved'],
+      ['rain', 'NL-N13', 'Rain', 'Regen', 'Approved'],
+      ['wind', 'NL-N14', 'Wind', 'Wind und Wetterlage', 'Approved']
+    ]
+  },
+  {
+    key: 'editorial',
+    title: 'Editorial',
+    description: 'Wiederkehrende redaktionelle Rubriken.',
+    symbols: [
+      ['feather', 'NL-E01', 'Feather', 'Der Moment des Tages', 'Approved'],
+      ['north-star', 'NL-E02', 'North Star', 'Unser Tipp', 'Approved'],
+      ['travel-notebook', 'NL-E03', 'Travel Notebook', 'Bernds Notizbuch', 'Approved']
+    ]
+  }
+] as const;
+
+const totalSymbols = groups.reduce((sum, group) => sum + group.symbols.length, 0);
+---
+
+<BaseLayout
+  title="Northern Lines Master Icon Library"
+  description="Interne Masterübersicht aller Northern Lines Symbole."
+  noindex={true}
+>
+  <a class="nl-design-backlink" href="/design/">← Design-Übersicht</a>
+  <header class="page-header">
+    <div class="container">
+      <div class="eyebrow">RC6.0a · Build 3</div>
+      <h1>Northern Lines Master Icon Library</h1>
+      <p class="lead">
+        Die offizielle Arbeits- und Referenzseite für alle bisher erstellten
+        Northern-Lines-Symbole.
+      </p>
+
+      <div class="nl-icon-stats" aria-label="Bibliotheksübersicht">
+        <div><strong>{totalSymbols}</strong><span>Symbole</span></div>
+        <div><strong>{groups.length}</strong><span>Kategorien</span></div>
+        <div><strong>24 × 24</strong><span>Basisraster</span></div>
+        <div><strong>SVG</strong><span>Masterformat</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container nl-icon-library" data-icon-library>
+      <aside class="nl-icon-library__rules">
+        <div>
+          <h2>Gestaltungsregeln</h2>
+          <p>
+            Alle Symbole folgen derselben ruhigen Outline-Sprache und
+            verwenden <code>currentColor</code>.
+          </p>
+        </div>
+        <ul>
+          <li>keine Füllflächen</li>
+          <li>runde Linienenden</li>
+          <li>organische Übergänge</li>
+          <li>großzügiger Innenraum</li>
+          <li>SVG-first</li>
+          <li>lesbar ab 24 Pixeln</li>
+        </ul>
+      </aside>
+
+      <div class="nl-icon-toolbar" aria-label="Icon Library filtern">
+        <label class="nl-icon-search">
+          <span>Symbol suchen</span>
+          <input
+            type="search"
+            placeholder="Name, ID oder Einsatzzweck"
+            data-icon-search
+          />
+        </label>
+
+        <div class="nl-icon-filters" role="group" aria-label="Kategorien">
+          <button type="button" class="is-active" data-icon-filter="all">Alle</button>
+          {groups.map((group) => (
+            <button type="button" data-icon-filter={group.key}>{group.title}</button>
+          ))}
+        </div>
+      </div>
+
+      <p class="nl-icon-result" data-icon-result>
+        {totalSymbols} Symbole werden angezeigt.
+      </p>
+
+      {groups.map((group) => (
+        <section class="nl-icon-group" data-icon-group={group.key}>
+          <header class="nl-icon-group__header">
+            <div>
+              <small>{group.symbols.length} Symbole</small>
+              <h2>{group.title}</h2>
+            </div>
+            <p>{group.description}</p>
+          </header>
+
+          <div class="nl-icon-group__grid">
+            {group.symbols.map(([name, id, label, purpose, status]) => (
+              <article
+                class="nl-icon-card"
+                data-icon-card
+                data-category={group.key}
+                data-search={`${name} ${id} ${label} ${purpose}`.toLowerCase()}
+              >
+                <div class="nl-icon-card__preview">
+                  <NorthernLineIcon name={name} size={64} />
+                </div>
+
+                <div class="nl-icon-card__content">
+                  <div class="nl-icon-card__meta">
+                    <small>{id}</small>
+                    <span class:list={[
+                      'nl-icon-status',
+                      status === 'Approved'
+                        ? 'nl-icon-status--approved'
+                        : 'nl-icon-status--review'
+                    ]}>
+                      {status}
+                    </span>
+                  </div>
+
+                  <h3>{label}</h3>
+                  <p>{purpose}</p>
+
+                  <div class="nl-icon-card__actions">
+                    <code>{name}.svg</code>
+                    <button
+                      type="button"
+                      data-copy-icon={name}
+                      aria-label={`Dateinamen ${name}.svg kopieren`}
+                    >
+                      Kopieren
+                    </button>
+                    <a
+                      href={`/icons/northern-lines/${name}.svg`}
+                      download={`${name}.svg`}
+                    >
+                      SVG
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <div class="nl-icon-empty" data-icon-empty hidden>
+        <NorthernLineIcon name="compass" size={42} />
+        <h2>Kein Symbol gefunden</h2>
+        <p>Bitte ändere den Suchbegriff oder wähle eine andere Kategorie.</p>
+      </div>
+
+      <script>
+        const library = document.querySelector('[data-icon-library]');
+
+        if (library) {
+          const search = library.querySelector('[data-icon-search]');
+          const filterButtons = [...library.querySelectorAll('[data-icon-filter]')];
+          const cards = [...library.querySelectorAll('[data-icon-card]')];
+          const groups = [...library.querySelectorAll('[data-icon-group]')];
+          const result = library.querySelector('[data-icon-result]');
+          const empty = library.querySelector('[data-icon-empty]');
+          let activeFilter = 'all';
+
+          const update = () => {
+            const term = search?.value.trim().toLowerCase() || '';
+            let visibleCount = 0;
+
+            cards.forEach((card) => {
+              const matchesFilter =
+                activeFilter === 'all' || card.dataset.category === activeFilter;
+              const matchesSearch =
+                !term || card.dataset.search?.includes(term);
+
+              const visible = matchesFilter && matchesSearch;
+              card.hidden = !visible;
+              if (visible) visibleCount += 1;
+            });
+
+            groups.forEach((group) => {
+              const hasVisibleCards =
+                [...group.querySelectorAll('[data-icon-card]')]
+                  .some((card) => !card.hidden);
+              group.hidden = !hasVisibleCards;
+            });
+
+            if (result) {
+              result.textContent =
+                visibleCount === 1
+                  ? '1 Symbol wird angezeigt.'
+                  : `${visibleCount} Symbole werden angezeigt.`;
+            }
+
+            if (empty) empty.hidden = visibleCount !== 0;
+          };
+
+          search?.addEventListener('input', update);
+
+          filterButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+              activeFilter = button.dataset.iconFilter || 'all';
+              filterButtons.forEach((item) =>
+                item.classList.toggle('is-active', item === button)
+              );
+              update();
+            });
+          });
+
+          library.querySelectorAll('[data-copy-icon]').forEach((button) => {
+            button.addEventListener('click', async () => {
+              const filename = `${button.dataset.copyIcon}.svg`;
+
+              try {
+                await navigator.clipboard.writeText(filename);
+                const previous = button.textContent;
+                button.textContent = 'Kopiert';
+                window.setTimeout(() => {
+                  button.textContent = previous;
+                }, 1400);
+              } catch {
+                button.textContent = filename;
+              }
+            });
+          });
+
+          update();
+        }
+      </script>
+    </div>
+  </section>
+</BaseLayout>

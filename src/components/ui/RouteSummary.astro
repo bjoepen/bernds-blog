@@ -1,0 +1,48 @@
+---
+import NorthernLineIcon from '../icons/NorthernLineIcon.astro';
+
+interface Props {
+  location: string;
+  country?: string;
+  arrival?: string;
+  departure?: string;
+  tender?: boolean;
+  note?: string;
+}
+
+const {
+  location,
+  country,
+  arrival,
+  departure,
+  tender = false,
+  note
+} = Astro.props;
+---
+<aside class="nl-route-summary">
+  <div class="nl-route-summary__place">
+    <NorthernLineIcon name="marker" size={32} />
+    <div>
+      <small>Station</small>
+      <h2>{location}</h2>
+      {country && <p>{country}</p>}
+    </div>
+  </div>
+
+  <div class="nl-route-summary__facts">
+    {(arrival || departure) && (
+      <div>
+        <NorthernLineIcon name="calendar" size={22} />
+        <span><strong>Liegezeit</strong>{arrival || '–'} bis {departure || '–'}</span>
+      </div>
+    )}
+    {tender && (
+      <div>
+        <NorthernLineIcon name="anchor" size={22} />
+        <span><strong>Tenderhafen</strong>Das Schiff liegt vor Anker.</span>
+      </div>
+    )}
+  </div>
+
+  {note && <p class="nl-component-note">{note}</p>}
+</aside>

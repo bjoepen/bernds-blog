@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f5f0e5"/>
+  <circle cx="1030" cy="120" r="70" fill="#d6b783"/>
+  <path d="M0 430 C220 300 390 540 620 390 C820 260 970 430 1200 330 L1200 630 L0 630 Z" fill="#1d6370"/>
+  <path d="M0 500 C300 350 500 620 780 445 C980 320 1070 440 1200 410 L1200 630 L0 630 Z" fill="#124650"/>
+  <text x="90" y="205" font-family="Georgia,serif" font-size="92" fill="#173540">Bernds Blog</text>
+  <text x="95" y="275" font-family="Arial,sans-serif" font-size="30" letter-spacing="5" fill="#1d6370">REISEN | FOTOGRAFIEREN | GESTALTEN</text>
+</svg>

@@ -1,0 +1,40 @@
+---
+import NorthernLineIcon from '../icons/NorthernLineIcon.astro';
+
+type IconName =
+  | 'seagull' | 'ship' | 'camera' | 'compass'
+  | 'anchor' | 'lighthouse' | 'marker' | 'calendar'
+  | 'waves' | 'sun' | 'cloud' | 'rain' | 'wind'
+  | 'partly-cloudy' | 'notebook'
+  | 'feather' | 'north-star' | 'travel-notebook';
+
+interface Props {
+  title: string;
+  icon?: IconName;
+  eyebrow?: string;
+  variant?: 'default' | 'sea' | 'sand' | 'quiet';
+  compact?: boolean;
+}
+
+const {
+  title,
+  icon = 'seagull',
+  eyebrow,
+  variant = 'default',
+  compact = false
+} = Astro.props;
+---
+<aside class:list={[
+  'nl-panel',
+  `nl-panel--${variant}`,
+  { 'nl-panel--compact': compact }
+]}>
+  <NorthernLineIcon name={icon} size={30} />
+  <div class="nl-panel__content">
+    {eyebrow && <div class="nl-panel__eyebrow">{eyebrow}</div>}
+    <h2 class="nl-panel__title">{title}</h2>
+    <div class="nl-panel__body">
+      <slot />
+    </div>
+  </div>
+</aside>

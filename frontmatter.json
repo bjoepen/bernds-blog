@@ -1,0 +1,2126 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.framework.startCommand": "npm run dev",
+  "frontMatter.content.supportedFileTypes": [
+    "md",
+    "mdx"
+  ],
+  "frontMatter.content.defaultFileType": "md",
+  "frontMatter.content.publicFolder": "public",
+  "frontMatter.content.autoUpdateDate": true,
+  "frontMatter.content.draftField": {
+    "name": "draft",
+    "type": "boolean"
+  },
+  "frontMatter.content.filters": [
+    "contentFolders",
+    "tags",
+    "categories",
+    "draft"
+  ],
+  "frontMatter.content.grouping": [
+    {
+      "title": "Reiseziel",
+      "name": "destination"
+    },
+    {
+      "title": "Land",
+      "name": "country"
+    },
+    {
+      "title": "Bereich",
+      "name": "section"
+    }
+  ],
+  "frontMatter.file.slugSeparator": "-",
+  "frontMatter.file.preserveCasing": false,
+  "frontMatter.global.timezone": "Europe/Berlin",
+  "frontMatter.git.enabled": true,
+  "frontMatter.preview.host": "http://localhost:4321",
+  "frontMatter.media.publicFolder": "public/images",
+  "frontMatter.media.supportedMimeTypes": [
+    "image/*"
+  ],
+  "frontMatter.media.contentTypes": [
+    {
+      "name": "default",
+      "fileTypes": [
+        "png",
+        "jpg",
+        "jpeg",
+        "webp",
+        "avif",
+        "svg"
+      ],
+      "fields": [
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "title": "Alternativtext",
+          "name": "alt",
+          "type": "string"
+        },
+        {
+          "title": "Bildunterschrift",
+          "name": "caption",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "Reisen",
+      "path": "[[workspace]]/src/content/reisen",
+      "contentTypes": [
+        "reisebericht"
+      ],
+      "excludePaths": [
+        "_*.*"
+      ]
+    },
+    {
+      "title": "Reisetage",
+      "path": "[[workspace]]/src/content/reisetage",
+      "contentTypes": [
+        "reisetag",
+        "seetag",
+        "reisetag-mobile"
+      ],
+      "excludePaths": [
+        "_*.*"
+      ]
+    },
+    {
+      "title": "Häfen",
+      "path": "[[workspace]]/src/content/haefen",
+      "contentTypes": [
+        "hafen"
+      ],
+      "excludePaths": [
+        "_*.*"
+      ]
+    },
+    {
+      "title": "Schiffe",
+      "path": "[[workspace]]/src/content/schiffe",
+      "contentTypes": [
+        "schiff"
+      ],
+      "excludePaths": [
+        "_*.*"
+      ]
+    },
+    {
+      "title": "Orte",
+      "path": "[[workspace]]/src/content/orte",
+      "contentTypes": [
+        "ort"
+      ],
+      "excludePaths": [
+        "_*.*"
+      ]
+    },
+    {
+      "title": "Fotospots",
+      "path": "[[workspace]]/src/content/fotospots",
+      "contentTypes": [
+        "fotospot"
+      ],
+      "excludePaths": [
+        "_*.*"
+      ]
+    },
+    {
+      "title": "Ausrüstung",
+      "path": "[[workspace]]/src/content/ausruestung",
+      "contentTypes": [
+        "ausruestung"
+      ],
+      "excludePaths": [
+        "_*.*"
+      ]
+    },
+    {
+      "title": "Artikel",
+      "path": "[[workspace]]/src/content/artikel",
+      "contentTypes": [
+        "artikel"
+      ],
+      "excludePaths": [
+        "_*.*"
+      ]
+    }
+  ],
+  "frontMatter.taxonomy.fieldGroups": [
+    {
+      "id": "routeStop",
+      "labelField": "name",
+      "fields": [
+        {
+          "title": "Nummer",
+          "name": "number",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "min": 1,
+            "step": 1
+          }
+        },
+        {
+          "title": "Ort / Hafen",
+          "name": "name",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Datum",
+          "name": "date",
+          "type": "string",
+          "single": true,
+          "description": "Beispiel: 11. Oktober 2025"
+        },
+        {
+          "title": "Breitengrad",
+          "name": "latitude",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "isDecimal": true,
+            "step": 0.0001
+          }
+        },
+        {
+          "title": "Längengrad",
+          "name": "longitude",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "isDecimal": true,
+            "step": 0.0001
+          }
+        },
+        {
+          "title": "Am Ende zum Start zurückkehren",
+          "name": "returnAtEnd",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "id": "galleryImage",
+      "labelField": "caption",
+      "fields": [
+        {
+          "title": "Bild",
+          "name": "src",
+          "type": "image",
+          "required": true
+        },
+        {
+          "title": "Alternativtext",
+          "name": "alt",
+          "type": "string",
+          "required": true,
+          "description": "Sachliche Bildbeschreibung für Barrierefreiheit und SEO."
+        },
+        {
+          "title": "Bildunterschrift",
+          "name": "caption",
+          "type": "string"
+        },
+        {
+          "title": "Breite in Pixel",
+          "name": "width",
+          "type": "number",
+          "numberOptions": {
+            "min": 1,
+            "step": 1
+          }
+        },
+        {
+          "title": "Höhe in Pixel",
+          "name": "height",
+          "type": "number",
+          "numberOptions": {
+            "min": 1,
+            "step": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "placeSpot",
+      "labelField": "name",
+      "fields": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Breitengrad",
+          "name": "latitude",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "isDecimal": true,
+            "step": 0.0001
+          }
+        },
+        {
+          "title": "Längengrad",
+          "name": "longitude",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "isDecimal": true,
+            "step": 0.0001
+          }
+        },
+        {
+          "title": "Hinweis",
+          "name": "note",
+          "type": "string"
+        },
+        {
+          "title": "Objektiv / Brennweite",
+          "name": "lens",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Beste Tageszeit",
+          "name": "bestTime",
+          "type": "string",
+          "single": true
+        }
+      ]
+    }
+  ],
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "reisetag",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/reisetag.mdx",
+      "previewPath": "'reisetage/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "type": "heading",
+          "title": "Reisetag"
+        },
+        {
+          "title": "Art des Tages",
+          "name": "dayType",
+          "type": "choice",
+          "choices": [
+            "anreise",
+            "landgang",
+            "seetag",
+            "ausschiffung"
+          ],
+          "default": "landgang"
+        },
+        {
+          "title": "Untertitel",
+          "name": "subtitle",
+          "type": "string"
+        },
+        {
+          "title": "Reisedatum",
+          "name": "travelDate",
+          "type": "datetime"
+        },
+        {
+          "title": "Zugehörige Reise",
+          "name": "trip",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Tag",
+          "name": "day",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "min": 1,
+            "step": 1
+          }
+        },
+        {
+          "title": "Ort",
+          "name": "location",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Land",
+          "name": "country",
+          "type": "string"
+        },
+        {
+          "title": "Ankunft",
+          "name": "arrival",
+          "type": "string"
+        },
+        {
+          "title": "Abfahrt",
+          "name": "departure",
+          "type": "string"
+        },
+        {
+          "title": "Aktivität",
+          "name": "activity",
+          "type": "string"
+        },
+        {
+          "title": "Tenderhafen",
+          "name": "tender",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "title": "Verknüpfter Hafenbeitrag",
+          "name": "portSlug",
+          "type": "string"
+        },
+        {
+          "title": "Wetter",
+          "name": "weather",
+          "type": "string"
+        },
+        {
+          "title": "Temperatur",
+          "name": "temperature",
+          "type": "string"
+        },
+        {
+          "title": "Fotografische Bewertung",
+          "name": "photoRating",
+          "type": "number",
+          "numberOptions": {
+            "min": 1,
+            "max": 5,
+            "step": 1
+          }
+        },
+        {
+          "title": "Moment des Tages",
+          "name": "momentOfDay",
+          "type": "string"
+        },
+        {
+          "title": "Die kleine Erinnerung",
+          "name": "smallMemory",
+          "type": "string"
+        },
+        {
+          "type": "heading",
+          "title": "Bilder und SEO"
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Bildunterschrift Hero",
+          "name": "heroCaption",
+          "type": "string"
+        },
+        {
+          "title": "Galerie-Titel",
+          "name": "galleryTitle",
+          "type": "string"
+        },
+        {
+          "title": "Galeriebilder",
+          "name": "gallery",
+          "type": "block",
+          "fieldGroup": [
+            "galleryImage"
+          ]
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string"
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string"
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string"
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "name": "seetag",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/seetag.mdx",
+      "previewPath": "'reisetage/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "type": "heading",
+          "title": "Reisetag"
+        },
+        {
+          "title": "Art des Tages",
+          "name": "dayType",
+          "type": "choice",
+          "choices": [
+            "anreise",
+            "landgang",
+            "seetag",
+            "ausschiffung"
+          ],
+          "default": "landgang"
+        },
+        {
+          "title": "Untertitel",
+          "name": "subtitle",
+          "type": "string"
+        },
+        {
+          "title": "Reisedatum",
+          "name": "travelDate",
+          "type": "datetime"
+        },
+        {
+          "title": "Zugehörige Reise",
+          "name": "trip",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Tag",
+          "name": "day",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "min": 1,
+            "step": 1
+          }
+        },
+        {
+          "title": "Ort",
+          "name": "location",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Land",
+          "name": "country",
+          "type": "string"
+        },
+        {
+          "title": "Ankunft",
+          "name": "arrival",
+          "type": "string"
+        },
+        {
+          "title": "Abfahrt",
+          "name": "departure",
+          "type": "string"
+        },
+        {
+          "title": "Aktivität",
+          "name": "activity",
+          "type": "string"
+        },
+        {
+          "title": "Tenderhafen",
+          "name": "tender",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "title": "Verknüpfter Hafenbeitrag",
+          "name": "portSlug",
+          "type": "string"
+        },
+        {
+          "title": "Wetter",
+          "name": "weather",
+          "type": "string"
+        },
+        {
+          "title": "Temperatur",
+          "name": "temperature",
+          "type": "string"
+        },
+        {
+          "title": "Fotografische Bewertung",
+          "name": "photoRating",
+          "type": "number",
+          "numberOptions": {
+            "min": 1,
+            "max": 5,
+            "step": 1
+          }
+        },
+        {
+          "title": "Moment des Tages",
+          "name": "momentOfDay",
+          "type": "string"
+        },
+        {
+          "title": "Die kleine Erinnerung",
+          "name": "smallMemory",
+          "type": "string"
+        },
+        {
+          "type": "heading",
+          "title": "Bilder und SEO"
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Bildunterschrift Hero",
+          "name": "heroCaption",
+          "type": "string"
+        },
+        {
+          "title": "Galerie-Titel",
+          "name": "galleryTitle",
+          "type": "string"
+        },
+        {
+          "title": "Galeriebilder",
+          "name": "gallery",
+          "type": "block",
+          "fieldGroup": [
+            "galleryImage"
+          ]
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string"
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string"
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string"
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "name": "hafen",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/hafen.md",
+      "previewPath": "'haefen/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "type": "heading",
+          "title": "Hafen und Reise"
+        },
+        {
+          "title": "Untertitel",
+          "name": "subtitle",
+          "type": "string"
+        },
+        {
+          "title": "Zugehörige Reise",
+          "name": "trip",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Land",
+          "name": "country",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Besuchsdatum",
+          "name": "visitDate",
+          "type": "datetime"
+        },
+        {
+          "title": "Ankunft",
+          "name": "arrival",
+          "type": "string"
+        },
+        {
+          "title": "Abfahrt",
+          "name": "departure",
+          "type": "string"
+        },
+        {
+          "title": "Tenderhafen",
+          "name": "tender",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "title": "Breitengrad",
+          "name": "latitude",
+          "type": "number",
+          "required": true
+        },
+        {
+          "title": "Längengrad",
+          "name": "longitude",
+          "type": "number",
+          "required": true
+        },
+        {
+          "title": "Karten-Zoom",
+          "name": "mapZoom",
+          "type": "number",
+          "default": 14
+        },
+        {
+          "title": "Status",
+          "name": "visitStatus",
+          "type": "choice",
+          "choices": [
+            "erlebt",
+            "geplant"
+          ],
+          "default": "erlebt"
+        },
+        {
+          "title": "Empfohlenes Objektiv",
+          "name": "recommendedLens",
+          "type": "string"
+        },
+        {
+          "title": "Beste Tageszeit",
+          "name": "bestTime",
+          "type": "string"
+        },
+        {
+          "title": "Fotospots",
+          "name": "spots",
+          "type": "block",
+          "fieldGroup": [
+            "placeSpot"
+          ]
+        },
+        {
+          "type": "heading",
+          "title": "Bilder und SEO"
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Bildunterschrift Hero",
+          "name": "heroCaption",
+          "type": "string"
+        },
+        {
+          "title": "Galerie-Titel",
+          "name": "galleryTitle",
+          "type": "string"
+        },
+        {
+          "title": "Galeriebilder",
+          "name": "gallery",
+          "type": "block",
+          "fieldGroup": [
+            "galleryImage"
+          ]
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string"
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string"
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string"
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "name": "schiff",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/schiff.md",
+      "previewPath": "'schiffe/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "type": "heading",
+          "title": "Schiffsdaten"
+        },
+        {
+          "title": "Reederei",
+          "name": "operator",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Schiffsklasse",
+          "name": "shipClass",
+          "type": "string"
+        },
+        {
+          "title": "Baujahr",
+          "name": "yearBuilt",
+          "type": "number"
+        },
+        {
+          "title": "Passagiere",
+          "name": "passengers",
+          "type": "number"
+        },
+        {
+          "title": "Länge",
+          "name": "length",
+          "type": "string"
+        },
+        {
+          "title": "Breite",
+          "name": "width",
+          "type": "string"
+        },
+        {
+          "title": "Kabinen",
+          "name": "cabins",
+          "type": "number"
+        },
+        {
+          "title": "Bewertung",
+          "name": "rating",
+          "type": "number",
+          "numberOptions": {
+            "min": 1,
+            "max": 5,
+            "step": 1
+          }
+        },
+        {
+          "type": "heading",
+          "title": "Bilder und SEO"
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Bildunterschrift Hero",
+          "name": "heroCaption",
+          "type": "string"
+        },
+        {
+          "title": "Galerie-Titel",
+          "name": "galleryTitle",
+          "type": "string"
+        },
+        {
+          "title": "Galeriebilder",
+          "name": "gallery",
+          "type": "block",
+          "fieldGroup": [
+            "galleryImage"
+          ]
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string"
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string"
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string"
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "name": "reisebericht",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/reisebericht.md",
+      "previewPath": "'reisen/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Letzte Aktualisierung",
+          "name": "updatedDate",
+          "type": "datetime",
+          "isModifiedDate": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "type": "heading",
+          "title": "Reisedaten"
+        },
+        {
+          "title": "Untertitel",
+          "name": "subtitle",
+          "type": "string"
+        },
+        {
+          "title": "Reiseziel / Region",
+          "name": "destination",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Region / Länder",
+          "name": "region",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Schiff",
+          "name": "ship",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Verknüpfter Schiffsbeitrag",
+          "name": "shipSlug",
+          "type": "string"
+        },
+        {
+          "title": "Reederei",
+          "name": "operator",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Reisebeginn",
+          "name": "startDate",
+          "type": "datetime"
+        },
+        {
+          "title": "Reiseende",
+          "name": "endDate",
+          "type": "datetime"
+        },
+        {
+          "title": "Dauer",
+          "name": "duration",
+          "type": "string",
+          "single": true,
+          "description": "Beispiel: 8 Tage · 7 Nächte"
+        },
+        {
+          "title": "Bewertung",
+          "name": "rating",
+          "type": "number",
+          "numberOptions": {
+            "min": 1,
+            "max": 5,
+            "step": 1
+          }
+        },
+        {
+          "title": "Würde ich wieder buchen?",
+          "name": "wouldBookAgain",
+          "type": "boolean"
+        },
+        {
+          "title": "Bildunterschrift Hero",
+          "name": "heroCaption",
+          "type": "string"
+        },
+        {
+          "type": "heading",
+          "title": "Reiseroute"
+        },
+        {
+          "title": "Titel der Route",
+          "name": "routeTitle",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Einleitung zur Route",
+          "name": "routeIntro",
+          "type": "string"
+        },
+        {
+          "title": "Kartenzentrum",
+          "name": "routeCenter",
+          "type": "list",
+          "description": "Zwei Zahlen: Breitengrad und Längengrad."
+        },
+        {
+          "title": "Karten-Zoom",
+          "name": "routeZoom",
+          "type": "number",
+          "default": 5,
+          "numberOptions": {
+            "min": 1,
+            "max": 19,
+            "step": 1
+          }
+        },
+        {
+          "title": "Stationen der Route",
+          "name": "routeStops",
+          "type": "block",
+          "fieldGroup": [
+            "routeStop"
+          ]
+        },
+        {
+          "type": "heading",
+          "title": "Bildergalerie"
+        },
+        {
+          "title": "Galerie-Titel",
+          "name": "galleryTitle",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Galeriebilder",
+          "name": "gallery",
+          "type": "block",
+          "fieldGroup": [
+            "galleryImage"
+          ]
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero-Bild",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string",
+          "single": true,
+          "description": "Möglichst unter 60 Zeichen."
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string",
+          "description": "Etwa 140–160 Zeichen."
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "name": "ort",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/ort.md",
+      "previewPath": "'orte/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Letzte Aktualisierung",
+          "name": "updatedDate",
+          "type": "datetime",
+          "isModifiedDate": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "type": "heading",
+          "title": "Ort und Karte"
+        },
+        {
+          "title": "Untertitel",
+          "name": "subtitle",
+          "type": "string"
+        },
+        {
+          "title": "Route",
+          "name": "route",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Land",
+          "name": "country",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Breitengrad",
+          "name": "latitude",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "isDecimal": true,
+            "step": 0.0001
+          }
+        },
+        {
+          "title": "Längengrad",
+          "name": "longitude",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "isDecimal": true,
+            "step": 0.0001
+          }
+        },
+        {
+          "title": "Karten-Zoom",
+          "name": "mapZoom",
+          "type": "number",
+          "default": 14,
+          "numberOptions": {
+            "min": 1,
+            "max": 19,
+            "step": 1
+          }
+        },
+        {
+          "title": "Status",
+          "name": "visitStatus",
+          "type": "choice",
+          "choices": [
+            "erlebt",
+            "geplant"
+          ],
+          "default": "geplant"
+        },
+        {
+          "title": "Titel Vorbereitung",
+          "name": "preparationTitle",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Text Vorbereitung",
+          "name": "preparationText",
+          "type": "string"
+        },
+        {
+          "title": "Empfohlenes Objektiv",
+          "name": "recommendedLens",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Beste Tageszeit",
+          "name": "bestTime",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Fotospots",
+          "name": "spots",
+          "type": "block",
+          "fieldGroup": [
+            "placeSpot"
+          ]
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero-Bild",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string",
+          "single": true,
+          "description": "Möglichst unter 60 Zeichen."
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string",
+          "description": "Etwa 140–160 Zeichen."
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "name": "fotospot",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/fotospot.md",
+      "previewPath": "'fotospots/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Letzte Aktualisierung",
+          "name": "updatedDate",
+          "type": "datetime",
+          "isModifiedDate": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "title": "Ort",
+          "name": "place",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Land",
+          "name": "country",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Breitengrad",
+          "name": "latitude",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "isDecimal": true,
+            "step": 0.0001
+          }
+        },
+        {
+          "title": "Längengrad",
+          "name": "longitude",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "isDecimal": true,
+            "step": 0.0001
+          }
+        },
+        {
+          "title": "Beste Tageszeit",
+          "name": "bestTime",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Objektiv / Brennweite",
+          "name": "lens",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Schwierigkeit",
+          "name": "difficulty",
+          "type": "choice",
+          "choices": [
+            "leicht",
+            "mittel",
+            "anspruchsvoll"
+          ],
+          "default": "leicht"
+        },
+        {
+          "title": "Gehzeit",
+          "name": "walkingTime",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero-Bild",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string",
+          "single": true,
+          "description": "Möglichst unter 60 Zeichen."
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string",
+          "description": "Etwa 140–160 Zeichen."
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "name": "ausruestung",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/ausruestung.md",
+      "previewPath": "'ausruestung/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Letzte Aktualisierung",
+          "name": "updatedDate",
+          "type": "datetime",
+          "isModifiedDate": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "title": "Art der Ausrüstung",
+          "name": "equipmentType",
+          "type": "choice",
+          "choices": [
+            "Kamera",
+            "Objektiv",
+            "Rucksack",
+            "Filter",
+            "Stativ",
+            "Zubehör"
+          ],
+          "required": true
+        },
+        {
+          "title": "Hersteller",
+          "name": "manufacturer",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Modell",
+          "name": "model",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Bewertung",
+          "name": "rating",
+          "type": "number",
+          "numberOptions": {
+            "min": 1,
+            "max": 5,
+            "step": 1
+          }
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero-Bild",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string",
+          "single": true,
+          "description": "Möglichst unter 60 Zeichen."
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string",
+          "description": "Etwa 140–160 Zeichen."
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "name": "artikel",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/artikel.md",
+      "previewPath": "'fotografie/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Letzte Aktualisierung",
+          "name": "updatedDate",
+          "type": "datetime",
+          "isModifiedDate": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "title": "Themenbereich",
+          "name": "section",
+          "type": "choice",
+          "choices": [
+            "Fotografie",
+            "Reiseplanung",
+            "Erfahrungen",
+            "Ausrüstung"
+          ],
+          "required": true
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero-Bild",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string",
+          "single": true,
+          "description": "Möglichst unter 60 Zeichen."
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string",
+          "description": "Etwa 140–160 Zeichen."
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "name": "reisetag-mobile",
+      "pageBundle": false,
+      "fileType": "md",
+      "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/reisetag-mobile.md",
+      "previewPath": "'reisetage/' + $fileName",
+      "fields": [
+        {
+          "title": "Inhaltstyp",
+          "name": "type",
+          "type": "string",
+          "hidden": true,
+          "required": true
+        },
+        {
+          "title": "Titel",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Kurzbeschreibung",
+          "name": "description",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Veröffentlichungsdatum",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true,
+          "required": true
+        },
+        {
+          "title": "Entwurf",
+          "name": "draft",
+          "type": "draft",
+          "default": true
+        },
+        {
+          "type": "heading",
+          "title": "Reisetag"
+        },
+        {
+          "title": "Art des Tages",
+          "name": "dayType",
+          "type": "choice",
+          "choices": [
+            "anreise",
+            "landgang",
+            "seetag",
+            "ausschiffung"
+          ],
+          "default": "landgang"
+        },
+        {
+          "title": "Untertitel",
+          "name": "subtitle",
+          "type": "string"
+        },
+        {
+          "title": "Reisedatum",
+          "name": "travelDate",
+          "type": "datetime"
+        },
+        {
+          "title": "Zugehörige Reise",
+          "name": "trip",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Tag",
+          "name": "day",
+          "type": "number",
+          "required": true,
+          "numberOptions": {
+            "min": 1,
+            "step": 1
+          }
+        },
+        {
+          "title": "Ort",
+          "name": "location",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "Land",
+          "name": "country",
+          "type": "string"
+        },
+        {
+          "title": "Ankunft",
+          "name": "arrival",
+          "type": "string"
+        },
+        {
+          "title": "Abfahrt",
+          "name": "departure",
+          "type": "string"
+        },
+        {
+          "title": "Aktivität",
+          "name": "activity",
+          "type": "string"
+        },
+        {
+          "title": "Tenderhafen",
+          "name": "tender",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "title": "Verknüpfter Hafenbeitrag",
+          "name": "portSlug",
+          "type": "string"
+        },
+        {
+          "title": "Wetter",
+          "name": "weather",
+          "type": "string"
+        },
+        {
+          "title": "Temperatur",
+          "name": "temperature",
+          "type": "string"
+        },
+        {
+          "title": "Fotografische Bewertung",
+          "name": "photoRating",
+          "type": "number",
+          "numberOptions": {
+            "min": 1,
+            "max": 5,
+            "step": 1
+          }
+        },
+        {
+          "title": "Moment des Tages",
+          "name": "momentOfDay",
+          "type": "string"
+        },
+        {
+          "title": "Die kleine Erinnerung",
+          "name": "smallMemory",
+          "type": "string"
+        },
+        {
+          "type": "heading",
+          "title": "Bilder und SEO"
+        },
+        {
+          "title": "Hero-Bild",
+          "name": "heroImage",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "Alternativtext Hero",
+          "name": "heroAlt",
+          "type": "string"
+        },
+        {
+          "title": "Bildunterschrift Hero",
+          "name": "heroCaption",
+          "type": "string"
+        },
+        {
+          "title": "Galerie-Titel",
+          "name": "galleryTitle",
+          "type": "string"
+        },
+        {
+          "title": "Galeriebilder",
+          "name": "gallery",
+          "type": "block",
+          "fieldGroup": [
+            "galleryImage"
+          ]
+        },
+        {
+          "title": "Kategorien",
+          "name": "categories",
+          "type": "categories"
+        },
+        {
+          "title": "Schlagwörter",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "SEO-Titel",
+          "name": "seoTitle",
+          "type": "string"
+        },
+        {
+          "title": "SEO-Beschreibung",
+          "name": "seoDescription",
+          "type": "string"
+        },
+        {
+          "title": "Canonical URL",
+          "name": "canonical",
+          "type": "string"
+        },
+        {
+          "title": "OpenGraph-Bild",
+          "name": "ogImage",
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}

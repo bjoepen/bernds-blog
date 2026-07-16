@@ -1,0 +1,70 @@
+---
+import NorthernLineIcon from './icons/NorthernLineIcon.astro';
+
+const { data } = Astro.props;
+const rating = data.photoRating;
+
+const activityIcon =
+  data.dayType === 'seetag'
+    ? 'waves'
+    : data.dayType === 'anreise' || data.dayType === 'ausschiffung'
+      ? 'ship'
+      : 'marker';
+
+const weatherText = `${data.weather || ''} ${data.temperature || ''}`.toLowerCase();
+const weatherIcon =
+  weatherText.includes('regen')
+    ? 'rain'
+    : weatherText.includes('wolke') || weatherText.includes('bewölkt')
+      ? 'cloud'
+      : 'sun';
+---
+<div class="day-info-card">
+  <div class="day-info-row">
+    <NorthernLineIcon name="calendar" size={24} />
+    <div><strong>Tag {data.day}</strong>{data.travelDate && <small>{data.travelDate.toLocaleDateString('de-DE')}</small>}</div>
+  </div>
+
+  <div class="day-info-row">
+    <NorthernLineIcon name="marker" size={24} />
+    <div><strong>{data.location}</strong>{data.country && <small>{data.country}</small>}</div>
+  </div>
+
+  {data.activity && (
+    <div class="day-info-row">
+      <NorthernLineIcon name={activityIcon} size={24} />
+      <div><strong>{data.activity}</strong></div>
+    </div>
+  )}
+
+  {data.tender && (
+    <div class="day-info-row">
+      <NorthernLineIcon name="anchor" size={24} />
+      <div><strong>Tenderhafen</strong><small>Das Schiff liegt vor Anker.</small></div>
+    </div>
+  )}
+
+  {(data.arrival || data.departure) && (
+    <div class="day-info-row">
+      <NorthernLineIcon name="ship" size={24} />
+      <div>
+        <strong>Liegezeit</strong>
+        <small>{data.arrival || '–'} bis {data.departure || '–'}</small>
+      </div>
+    </div>
+  )}
+
+  {(data.weather || data.temperature) && (
+    <div class="day-info-row">
+      <NorthernLineIcon name={weatherIcon} size={24} />
+      <div><strong>{data.weather || 'Wetter'}</strong>{data.temperature && <small>{data.temperature}</small>}</div>
+    </div>
+  )}
+
+  {rating && (
+    <div class="day-info-row">
+      <NorthernLineIcon name="camera" size={24} />
+      <div><strong>Fotografische Eindrücke</strong><small>{'★'.repeat(rating)}{'☆'.repeat(5-rating)}</small></div>
+    </div>
+  )}
+</div>

@@ -1,0 +1,89 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import DayInfoCard from '../../../components/DayInfoCard.astro';
+import TravelGallery from '../../../components/TravelGallery.astro';
+import NLHero from '../../../components/northern-lines/NLHero.astro';
+
+export async function getStaticPaths() {
+  const allDays = await getCollection('reisetage', ({ data }) => import.meta.env.DEV || !data.draft);
+
+  return allDays.map((entry) => {
+    const tripDays = allDays
+      .filter((day) => day.data.trip === entry.data.trip)
+      .sort((a, b) => a.data.day - b.data.day);
+    const position = tripDays.findIndex((day) => day.id === entry.id);
+
+    return {
+      params: { id: entry.id },
+      props: {
+        entry,
+        previousDay: position > 0 ? tripDays[position - 1] : null,
+        nextDay: position < tripDays.length - 1 ? tripDays[position + 1] : null,
+      },
+    };
+  });
+}
+
+const { entry, previousDay, nextDay } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+
+const heroIcon = {
+  anreise: 'ship',
+  landgang: d.tender ? 'anchor' : 'marker',
+  seetag: 'waves',
+  ausschiffung: 'compass'
+}[d.dayType] ?? 'compass';
+
+const heroEyebrow = [
+  d.dayType === 'seetag' ? 'Seetag' : `Tag ${d.day}`,
+  d.travelDate?.toLocaleDateString('de-DE'),
+  d.location
+].filter(Boolean).join(' · ');
+---
+<ArticleLayout entry={entry} editorial={true}>
+  <NLHero
+    slot="hero"
+    eyebrow={heroEyebrow}
+    title={d.title}
+    intro={d.description}
+    image={d.heroImage}
+    imageAlt={d.heroAlt || d.title}
+    caption={d.heroCaption}
+    icon={heroIcon}
+  />
+
+  <DayInfoCard data={d} />
+  <Content />
+  <TravelGallery images={d.gallery || []} title={d.galleryTitle || 'Bilder dieses Reisetages'} />
+
+  <nav class="article-navigation" aria-label="Navigation innerhalb der Reise">
+    <div>
+      {previousDay && (
+        <a href={`/reisetage/${previousDay.id}/`}>
+          <small>Vorheriger Reisetag</small>
+          <strong>← Tag {previousDay.data.day}: {previousDay.data.location}</strong>
+        </a>
+      )}
+    </div>
+    <a class="article-navigation-overview" href={`/reisen/${d.trip}/`}>Zur Reiseübersicht</a>
+    <div>
+      {nextDay && (
+        <a href={`/reisetage/${nextDay.id}/`}>
+          <small>Nächster Reisetag</small>
+          <strong>Tag {nextDay.data.day}: {nextDay.data.location} →</strong>
+        </a>
+      )}
+    </div>
+  </nav>
+
+  <div slot="sidebar" class="card">
+    <div class="card-number">{d.dayType === 'seetag' ? 'SEETAG' : `TAG ${d.day}`}</div>
+    <h3>{d.location}</h3>
+    <p><a href={`/reisen/${d.trip}/`}>Zur Reiseübersicht →</a></p>
+    {d.portSlug && <p><a href={`/haefen/${d.portSlug}/`}>Zum Hafenbeitrag →</a></p>}
+    {d.travelDate && <p><strong>Datum:</strong><br />{d.travelDate.toLocaleDateString('de-DE')}</p>}
+    {d.smallMemory && <div class="info-box"><strong>Die kleine Erinnerung</strong><p>{d.smallMemory}</p></div>}
+  </div>
+</ArticleLayout>

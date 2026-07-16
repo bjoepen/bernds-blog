@@ -1,0 +1,24 @@
+---
+const { images = [], title = 'Bilder dieser Reise' } = Astro.props;
+---
+{images.length > 0 && (
+  <section class="travel-gallery" aria-labelledby="travel-gallery-title">
+    <div class="eyebrow">Fotografische Erinnerungen</div>
+    <h2 id="travel-gallery-title">{title}</h2>
+    <div class="gallery-grid">
+      {images.map((image) => (
+        <figure class="gallery-item">
+          <img
+            src={image.src}
+            alt={image.alt}
+            width={image.width ?? 1600}
+            height={image.height ?? 1067}
+            loading="lazy"
+            decoding="async"
+          />
+          {image.caption && <figcaption>{image.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  </section>
+)}

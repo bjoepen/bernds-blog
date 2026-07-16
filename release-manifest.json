@@ -1,0 +1,138 @@
+{
+  "name": "Bernds Blog",
+  "version": "1.5.0",
+  "release": "Northern Lines Edition",
+  "source": "1.4.1-rc.3-sveltia-admin-route-fix",
+  "node": ">=22.12.0",
+  "registry": "https://registry.npmjs.org/",
+  "previewPages": [
+    "/design/icons/",
+    "/design/ui/"
+  ],
+  "verification": [
+    "npm ci",
+    "npm run verify",
+    "npm run dev",
+    "Open /",
+    "Open /admin/",
+    "Open /admin/config.yml"
+  ],
+  "productionTestCandidate": false,
+  "manualTests": [
+    "Run cms:configure",
+    "Run cms:check",
+    "Open /admin/",
+    "Create a draft journey",
+    "Create a draft journey day",
+    "Upload an image",
+    "Pull the commit locally",
+    "Run npm run verify"
+  ],
+  "publishedContent": [
+    "/reisetage/msc-seaview-tag-01-anreise-einschiffung/"
+  ],
+  "internalPreviewPages": [
+    "/design/",
+    "/design/system/",
+    "/design/icons/",
+    "/design/ui/",
+    "/design/editorial/"
+  ],
+  "newIcons": [
+    {
+      "id": "NL-T09",
+      "name": "Road",
+      "file": "road.svg"
+    },
+    {
+      "id": "NL-T10",
+      "name": "Stay",
+      "file": "stay.svg"
+    }
+  ],
+  "features": [
+    "Icon search",
+    "Category filters",
+    "Status display",
+    "SVG download",
+    "Filename copy"
+  ],
+  "approvedIcons": [
+    "NL-T09 Road",
+    "NL-T10 Stay"
+  ],
+  "newComponents": [
+    "NLHero",
+    "NLSectionDivider",
+    "NLQuote"
+  ],
+  "publishedPilot": "/reisetage/msc-seaview-tag-01-anreise-einschiffung/",
+  "frontpageHero": "/images/heroes/northern-lines/hero-07-reisen.png",
+  "journeyHero": "/images/heroes/northern-lines/hero-02-kreuzfahrten.png",
+  "heroCollection": [
+    {
+      "filename": "hero-01-autoreisen.png",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "filename": "hero-02-kreuzfahrten.png",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "filename": "hero-03-nordsee.png",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "filename": "hero-04-holland.png",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "filename": "hero-05-hafen-sonnenuntergang.png",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "filename": "hero-06-auslaufen.png",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "filename": "hero-07-reisen.png",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "filename": "hero-08-portrait.png",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "filename": "hero-09-kamera-tal.png",
+      "width": 1536,
+      "height": 1024
+    }
+  ],
+  "featureFreeze": true,
+  "finalTarget": "1.5.0",
+  "releasePolicy": "Only bug fixes, accessibility, performance and visual polish",
+  "status": "final",
+  "newFeatures": [
+    "Final Front Matter CMS integration",
+    "Final Sveltia CMS integration",
+    "GitHub repository configuration",
+    "GitHub Actions verify/build workflow",
+    "Norway 2026 draft journey and eight draft journey days",
+    "Repository-ready ignore rules"
+  ],
+  "fixes": [
+    ".npmrc remains optional",
+    "/admin/ redirects locally to /admin/index.html",
+    "Sveltia repository is preconfigured for bjoepen/bernds-blog",
+    "Generated and private local files are excluded from Git"
+  ],
+  "repository": "https://github.com/bjoepen/bernds-blog"
+}

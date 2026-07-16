@@ -1,0 +1,44 @@
+---
+import NorthernLineIcon from '../icons/NorthernLineIcon.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  image?: string;
+  imageAlt?: string;
+  caption?: string;
+  icon?: 'ship' | 'road' | 'stay' | 'compass' | 'camera' | 'waves' | 'anchor' | 'marker';
+  align?: 'left' | 'center';
+}
+
+const {
+  eyebrow,
+  title,
+  intro,
+  image,
+  imageAlt = '',
+  caption,
+  icon = 'compass',
+  align = 'left'
+} = Astro.props;
+---
+
+<header class:list={['nl-hero', `nl-hero--${align}`]}>
+  <div class="nl-hero__copy">
+    <div class="nl-hero__eyebrow">
+      <NorthernLineIcon name={icon} size={24} />
+      {eyebrow && <span>{eyebrow}</span>}
+    </div>
+
+    <h1>{title}</h1>
+    {intro && <p class="nl-hero__intro">{intro}</p>}
+  </div>
+
+  {image && (
+    <figure class="nl-hero__media">
+      <img src={image} alt={imageAlt} decoding="async" fetchpriority="high" />
+      {caption && <figcaption>{caption}</figcaption>}
+    </figure>
+  )}
+</header>

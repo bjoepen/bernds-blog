@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('schiffe', ({ data }) => import.meta.env.DEV || !data.draft);
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<ArticleLayout entry={entry}>
+  {d.heroImage && (
+    <figure class="article-hero">
+      <img src={d.heroImage} alt={d.heroAlt || d.title} width="1800" height="900" loading="eager" decoding="async" />
+      {d.heroCaption && <figcaption>{d.heroCaption}</figcaption>}
+    </figure>
+  )}
+  <Content />
+
+  <div slot="sidebar" class="card">
+    <div class="card-number">SCHIFF</div>
+    <h3>{d.title}</h3>
+    <p><strong>Reederei:</strong> {d.operator}</p>
+    {d.shipClass && <p><strong>Klasse:</strong> {d.shipClass}</p>}
+    {d.yearBuilt && <p><strong>Baujahr:</strong> {d.yearBuilt}</p>}
+    {d.length && <p><strong>Länge:</strong> {d.length}</p>}
+    {d.passengers && <p><strong>Passagiere:</strong> {d.passengers}</p>}
+    {d.rating && <p><strong>Unsere Bewertung:</strong><br />{'★'.repeat(d.rating)}{'☆'.repeat(5-d.rating)}</p>}
+  </div>
+</ArticleLayout>

@@ -1,0 +1,93 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import RouteMapConsent from '../../../components/RouteMapConsent.astro';
+import TravelGallery from '../../../components/TravelGallery.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('reisen', ({ data }) => import.meta.env.DEV || !data.draft);
+  const allDays = await getCollection('reisetage', ({ data }) => import.meta.env.DEV || !data.draft);
+
+  return entries.map((entry) => ({
+    params: { id: entry.id },
+    props: {
+      entry,
+      days: allDays
+        .filter((day) => day.data.trip === entry.id)
+        .sort((a, b) => a.data.day - b.data.day),
+    },
+  }));
+}
+
+const { entry, days } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<ArticleLayout entry={entry}>
+  {d.heroImage && (
+    <figure class="article-hero">
+      <img src={d.heroImage} alt={d.heroAlt || d.title} width="1800" height="900" loading="eager" decoding="async" />
+      {d.heroCaption && <figcaption>{d.heroCaption}</figcaption>}
+    </figure>
+  )}
+
+  <Content />
+
+  {days.length > 0 && (
+    <section class="journey-days" aria-labelledby="journey-days-title">
+      <div class="eyebrow">Unser Reisetagebuch</div>
+      <h2 id="journey-days-title">Tag für Tag</h2>
+      <div class="journey-day-grid">
+        {days.map((day) => (
+          <a class="journey-day-card" href={`/reisetage/${day.id}/`}>
+            <span class="journey-day-number">Tag {day.data.day}</span>
+            <strong>{day.data.title.replace(/^Tag \d+\s*[–-]\s*/, '')}</strong>
+            <small>
+              {day.data.travelDate?.toLocaleDateString('de-DE')}
+              {day.data.arrival && ` · ${day.data.arrival}`}
+              {day.data.departure && `–${day.data.departure}`}
+            </small>
+            <p>{day.data.description}</p>
+            {day.data.tender && <span class="journey-day-note">Tenderhafen</span>}
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {d.routeStops?.length > 0 && (
+    <section class="route-section">
+      <div class="eyebrow">Die Route</div>
+      <h2>{d.routeTitle || 'Unsere Reise im Überblick'}</h2>
+      {d.routeIntro && <p>{d.routeIntro}</p>}
+
+      <ol class="route-stop-list">
+        {d.routeStops.map((stop) => (
+          <li>
+            <span class="route-list-number">{stop.number}</span>
+            <span>
+              <strong>{stop.name}</strong>
+              {stop.date && <small>{stop.date}</small>}
+            </span>
+          </li>
+        ))}
+      </ol>
+
+      <RouteMapConsent stops={d.routeStops} center={d.routeCenter} zoom={d.routeZoom} />
+    </section>
+  )}
+
+  <TravelGallery images={d.gallery || []} title={d.galleryTitle || 'Bilder dieser Reise'} />
+
+  <div slot="sidebar" class="card">
+    <div class="card-number">REISE</div>
+    <h3>{d.destination}</h3>
+    {d.ship && <p><strong>Schiff:</strong> {d.ship}</p>}
+    {d.shipSlug && <p><a href={`/schiffe/${d.shipSlug}/`}>Zum Schiffsbeitrag →</a></p>}
+    {d.operator && <p><strong>Reederei:</strong> {d.operator}</p>}
+    {d.startDate && d.endDate && (
+      <p><strong>Zeitraum:</strong><br />{d.startDate.toLocaleDateString('de-DE')}–{d.endDate.toLocaleDateString('de-DE')}</p>
+    )}
+    {d.duration && <p><strong>Dauer:</strong> {d.duration}</p>}
+  </div>
+</ArticleLayout>

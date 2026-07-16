@@ -1,0 +1,36 @@
+{
+  "name": "bernds-blog",
+  "version": "1.5.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0",
+    "sync": "astro sync",
+    "clean": "node scripts/clean.mjs",
+    "release:check": "node scripts/release-check.mjs",
+    "content:check": "node scripts/content-check.mjs",
+    "verify": "npm run metadata:clean && npm run release:check && npm run content:check && npm run sync && npm run build",
+    "metadata:clean": "node scripts/clean-metadata.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "setup": "node scripts/setup.mjs",
+    "install:project": "node scripts/install-project.mjs",
+    "preverify": "node scripts/require-astro.mjs",
+    "cms:configure": "node scripts/configure-sveltia.mjs",
+    "cms:check": "node scripts/check-sveltia.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.0.0",
+    "astro": "^7.0.0",
+    "leaflet": "^1.9.4",
+    "@astrojs/mdx": "^7.0.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.3": true
+  }
+}
