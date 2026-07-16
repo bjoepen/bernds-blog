@@ -52,3 +52,12 @@ Desktop.ini
 *.bak
 dist-backup-*/
 deploy-local/
+
+# Lokale Release-Artefakte
+SHA256SUMS.txt
+*.zip
+FINAL_RELEASE.md
+RELEASE_RC*.md
+TEST_REPORT.md
+release-manifest.json
+
