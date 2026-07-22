@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import NorthStarNavigation from '../components/global/NorthStarNavigation/NorthStarNavigation.astro';
 
 const {
   title = 'Bernds Blog',
@@ -134,5 +135,6 @@ const structuredData = {
   </div>
   <div class="container footer-bottom"><p>© {new Date().getFullYear()} Bernds Blog – Alle Rechte vorbehalten.</p><nav aria-label="Rechtliche Navigation"><a href="/impressum/">Impressum</a><span aria-hidden="true">|</span><a href="/datenschutz/">Datenschutz</a></nav></div>
 </footer>
+  <NorthStarNavigation />
 </body>
 </html>
