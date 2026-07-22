@@ -8,9 +8,17 @@ type NavigationElement = HTMLButtonElement & {
 };
 
 let activeController: AbortController | undefined;
+let pendingFrames = new Set<number>();
+
+const destroyNorthStarNavigation = (): void => {
+  activeController?.abort();
+  activeController = undefined;
+  pendingFrames.forEach((frameId) => window.cancelAnimationFrame(frameId));
+  pendingFrames.clear();
+};
 
 const initialiseNorthStarNavigation = (): void => {
-  activeController?.abort();
+  destroyNorthStarNavigation();
   activeController = new AbortController();
   const { signal } = activeController;
 
@@ -21,6 +29,7 @@ const initialiseNorthStarNavigation = (): void => {
     let frameId = 0;
 
     const update = (): void => {
+      pendingFrames.delete(frameId);
       frameId = 0;
       const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
       const ratio = scrollableHeight > 0
@@ -29,11 +38,13 @@ const initialiseNorthStarNavigation = (): void => {
       const percentage = Math.round(ratio * 100);
 
       button.classList.toggle(VISIBLE_CLASS, scrollableHeight > 0 && ratio >= revealAt);
-      progress?.style.setProperty('--north-star-progress', String(percentage));
+      if (progress) progress.style.strokeDashoffset = String(100 - percentage);
     };
 
     const scheduleUpdate = (): void => {
-      if (frameId === 0) frameId = window.requestAnimationFrame(update);
+      if (frameId !== 0) return;
+      frameId = window.requestAnimationFrame(update);
+      pendingFrames.add(frameId);
     };
 
     button.addEventListener('click', () => {
@@ -49,4 +60,5 @@ const initialiseNorthStarNavigation = (): void => {
 };
 
 initialiseNorthStarNavigation();
+document.addEventListener('astro:before-swap', destroyNorthStarNavigation);
 document.addEventListener('astro:page-load', initialiseNorthStarNavigation);

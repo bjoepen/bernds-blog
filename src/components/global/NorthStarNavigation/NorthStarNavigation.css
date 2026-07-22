@@ -1,6 +1,5 @@
 .north-star-navigation {
   --north-star-size: 3rem;
-  --north-star-progress: 0;
   --north-star-surface: var(--paper-light, #fbf8f1);
   --north-star-foreground: var(--fjord, #1d6370);
   --north-star-track: var(--line, rgba(23, 53, 64, .16));
@@ -65,7 +64,7 @@
   stroke: currentColor;
   stroke-linecap: round;
   stroke-dasharray: 100;
-  stroke-dashoffset: calc(100 - var(--north-star-progress));
+  stroke-dashoffset: 100;
   transition: stroke-dashoffset var(--north-star-motion) ease-out;
 }
 
