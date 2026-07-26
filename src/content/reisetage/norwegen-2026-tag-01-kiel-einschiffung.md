@@ -20,7 +20,7 @@ weather: Regnerisch
 temperature: '19'
 photoRating: null
 momentOfDay: Eigene Anreise ist auch nicht kürzer als eine Flugreise.
-smallMemory: Was für eine geniale Abwicklung bei Parken und Meer
+smallMemory: Was für eine geniale Abwicklung bei Parken und Meer. Und wo ist mein Koffer.
 heroImage: /images/heroes/northern-lines/hero-02-kreuzfahrten.png
 heroAlt: Northern-Lines-Illustration eines Kreuzfahrtschiffs in einer ruhigen Fjordlandschaft
 heroCaption: ''
