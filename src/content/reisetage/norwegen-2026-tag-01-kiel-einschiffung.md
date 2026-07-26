@@ -1,40 +1,40 @@
 ---
 type: reisetag
-dayType: "anreise"
-title: "Tag 1 – Kiel – Einschiffung"
-subtitle: ""
-description: "Vorbereiteter Entwurf für Tag 1 der Norwegen-Reise 2026."
+dayType: anreise
+title: Tag 1 – Kiel – Einschiffung
+subtitle: ''
+description: Vorbereiteter Entwurf für Tag 1 der Norwegen-Reise 2026.
 pubDate: 2026-07-16
 travelDate: 2026-07-26
 draft: true
-trip: "norwegen-2026-mein-schiff-relax"
+trip: norwegen-2026-mein-schiff-relax
 day: 1
-location: "Kiel"
-country: "Deutschland"
-arrival: ""
-departure: ""
-activity: "Anreise und Einschiffung"
+location: Kiel
+country: Deutschland
+arrival: ''
+departure: ''
+activity: Anreise und Einschiffung
 tender: false
-portSlug: ""
-weather: ""
-temperature: ""
-photoRating:
-momentOfDay: ""
-smallMemory: ""
-heroImage: "/images/heroes/northern-lines/hero-02-kreuzfahrten.png"
-heroAlt: "Northern-Lines-Illustration eines Kreuzfahrtschiffs in einer ruhigen Fjordlandschaft"
-heroCaption: ""
-galleryTitle: "Bilder von Tag 1"
+portSlug: ''
+weather: Regnerisch
+temperature: '19'
+photoRating: null
+momentOfDay: Eigene Anreise ist auch nicht kürzer als eine Flugreise.
+smallMemory: Was für eine geniale Abwicklung bei Parken und Meer
+heroImage: /images/heroes/northern-lines/hero-02-kreuzfahrten.png
+heroAlt: Northern-Lines-Illustration eines Kreuzfahrtschiffs in einer ruhigen Fjordlandschaft
+heroCaption: ''
+galleryTitle: Bilder von Tag 1
 gallery: []
 categories:
   - Reisetagebuch
 tags:
   - Norwegen
   - Mein Schiff Relax
-seoTitle: ""
-seoDescription: ""
-canonical: ""
-ogImage: "/images/heroes/northern-lines/hero-02-kreuzfahrten.png"
+seoTitle: ''
+seoDescription: ''
+canonical: ''
+ogImage: /images/heroes/northern-lines/hero-02-kreuzfahrten.png
 ---
 
 ## Unterwegs notiert
