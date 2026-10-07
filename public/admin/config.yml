@@ -59,8 +59,12 @@ collections:
         widget: list
         min: 2
         max: 2
-        default: [42.5, 7.5]
-        field: { label: Koordinate, name: coordinate, widget: number, value_type: float }
+        required: false
+        field:
+          label: Koordinate
+          name: coordinate
+          widget: number
+          value_type: float
       - { label: Kartenzoom, name: routeZoom, widget: number, value_type: int, min: 1, max: 19, default: 5 }
       - label: Routenstationen
         name: routeStops
